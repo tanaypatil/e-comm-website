@@ -1,0 +1,82 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NFLM Nail Art | Rate Art</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type='text/css'>
+    <link href="{% static 'voting/animate.css' %}" rel="stylesheet" type='text/css'>
+    <link href="{% static 'voting/home.css' %}" rel="stylesheet" type='text/css'>
+</head>
+<body>
+
+<!--div class="home">
+    <div class="The_ hidden animated slideOutUp"">THE</div>
+    <div class="Ultimate hidden animated slideOutUp">ULTIMATE</div>
+    <div class="Nail_Art hidden animated slideOutUp">NAIL ART</div>
+    <div class="battle hidden animated slideOutUp">BATTLE</div>
+    <div class="vote hidden animated zoomOut">VOTE</div>
+    <div class="what hidden animated zoomOut">WHAT</div>
+    <div class="you hidden animated zoomOut">YOU</div>
+    <div class="like hidden animated zoomOut">LIKE</div>
+</div-->
+
+<div class="begin animated bounceInDown" onclick="jump()">BEGIN</div>
+
+<script type="text/javascript" src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<script  type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+<!--script type="text/javascript">
+    setTimeout(function s1() {
+       $('.The_').removeClass('hidden');
+    }, 700);
+    setTimeout(function s1() {
+       $('.Ultimate').removeClass('hidden');
+    }, 1700);
+    setTimeout(function s1() {
+       $('.Nail_Art').removeClass('hidden');
+    }, 2700);
+    setTimeout(function s1() {
+       $('.battle').removeClass('hidden');
+    }, 3700);
+    setTimeout(function s1() {
+       $('.vote').removeClass('hidden');
+    }, 4700);
+    setTimeout(function s1() {
+       $('.what').removeClass('hidden');
+    }, 5200);
+    setTimeout(function s1() {
+       $('.you').removeClass('hidden');
+    }, 5700);
+    setTimeout(function s1() {
+       $('.like').removeClass('hidden');
+    }, 6200);
+    setTimeout(function s1() {
+       $('.like').hide();
+       $('.The_').hide();
+       $('.The_').removeClass('slideOutUp');
+       $('.The_').addClass('slideInDown');
+       $('.The_').css({'font-size': '42px'});
+       $('.The_').text('Click on a Nail Art to Vote.');
+       $('.The_').show();
+    },7200);
+
+    setTimeout(function s1() {
+       $('.The_').hide();
+       $('.begin').removeClass('hidden');
+    },7900);
+
+    function jump(){
+        console.log("jump");
+        window.location.href = 'vote';
+    }
+
+</script-->
+
+<script type="text/javascript" defer>
+    function jump(){
+        console.log("jump");
+        window.location.href = 'vote';
+    }
+</script>
+</body>
+</html>

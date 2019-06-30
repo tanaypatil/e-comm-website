@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="NFLM, nail design, nail art, custom nail art, custom nail design, design nail art, custom design">
+    <meta name="Submit Your own Custom Made Nail Design Art.">
+    <title>NFLM | Custom Design</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+    {% include 'header.html' %}
+
+    <div class="container">
+        <div class="row">
+            {% include 'myaccount_sidebar.html' %}
+            <div class="col-md-9">
+                <div class="account-container">
+                    <h1>Submit a Customized Design</h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" action="{% url 'customization' %}" class="aa-login-form" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              {{ form|crispy }}
+                              <button type="submit" class="aa-browse-btn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+{% endblock %}

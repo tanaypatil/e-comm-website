@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | Update Address</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<!-- Cart view section -->
+<section id="aa-myaccount">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="aa-myaccount-area">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="aa-myaccount-login">
+                        <h4>Update Address</h4>
+                        <form method="post" action="{% url 'update_address' id=id %}" class="aa-login-form">
+                           {% csrf_token %}
+                           {{ addressForm|crispy }}
+                           <button type="submit" class="aa-browse-btn">Submit</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- / Cart view section -->
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

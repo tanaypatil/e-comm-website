@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load crispy_forms_tags %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | Order Finished</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<!-- Cart view section -->
+<section id="cart-view">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="cart-view-area">
+               <div class="cart-view-table">
+                  {% if order.order_items.all|length > 0 %}
+                  <h1 class="heading-center">Congratulations! Your Order has been successfully Placed.</h1>
+                  <!-- Cart Total view -->
+                  <div class="order-details">
+                     <table class="aa-totals-table">
+                        <tbody>
+                           <tr>
+                              <th>Order ID</th>
+                              <td><span>{{ order.order_id }}</span></td>
+                           </tr>
+                           <tr>
+                              <th>Order Status</th>
+                              <td><span>{{ order.status }}</span></td>
+                           </tr>
+                           <tr>
+                              <th>Order Date</th>
+                              <td><span>{{ order.date }}</span></td>
+                           </tr>
+                           {% if order.cart.coupon %}
+                            <tr>
+                               <th>Coupon Discount</th>
+                               <td><span>Rs {{ order.cart.coupon_discount }}</span></td>
+                            </tr>
+                            {% endif %}
+                           <tr>
+                              <th>Order Total</th>
+                              <td><span>Rs {{ order.get_final_amount }}</span></td>
+                           </tr>
+                           <tr>
+                              <th>Payment Method</th>
+                              <td><span>{{ order.payment_method }}</span></td>
+                           </tr>
+                           <tr>
+                              <th>Delivery Address</th>
+                              <td><span>{{ order.shipping_address }}</span></td>
+                           </tr>
+                           <tr>
+                              <th>Gift Wrap</th>
+                              <td>
+                                 {% if order.gift_wrap %}
+                                    <span style="color: #1abc9c"><fa class="fa fa-check"></fa></span>
+                                 {% else %}
+                                    <span style="color: red"><fa class="fa fa-close"></fa></span>
+                                 {% endif %}
+                              </td>
+                           </tr>
+                           {% if order.notes %}
+                           <tr>
+                              <th>Notes</th>
+                              <td><span>{{ order.notes }}</span></td>
+                           </tr>
+                           {% endif %}
+                        </tbody>
+                     </table>
+
+                  </div>
+                  <form action="">
+                     <div class="table-responsive">
+                        <table class="table">
+                           <thead>
+                              <tr>
+                                 <th></th>
+                                 <th>Product</th>
+                                 <th>Price</th>
+                                 <th>Quantity</th>
+                                 <th>Total</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for order_item in order.order_items.all %}
+                              <tr>
+                                 <td><a href="{{ order_item.product.get_absolute_url }}"><img src="{{ order_item.product.product_images.all.0.image.url }}" alt="{{ order_item.product.product_images.all.0.alt_text }}"></a></td>
+                                 <td><a class="aa-cart-title" href="#">{{ order_item.product.title }}</a></td>
+                                 <td>Rs {{ order_item.product.get_price }}</td>
+                                 <td>{{ order_item.quantity }}</td>
+                                 <td><span>Rs {{ order_item.line_total }}</span></td>
+                              </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                  </form>
+                  {% else %}
+                  <h1>No items in Order</h1>
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- / Cart view section -->
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

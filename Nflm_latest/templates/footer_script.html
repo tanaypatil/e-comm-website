@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<!-- SCRIPTS -->
+
+<!-- jQuery library -->
+<script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<!-- Product Slider -->
+<script async type="text/javascript" src="{% static 'js/jquery.owl.carousel.js' %}"></script>
+
+<!-- Custom js
+<script async src="{% static 'js/script.js' %}"></script>-->
+<script async src="{% static 'js/custom.js' %}"></script>
+<script defer>
+    function UpdateCartItemCount(){
+        var badge = $('#cart-count-badge');
+        var cart_total = $('#cart-total');
+        $.ajax({
+            type: "GET",
+            url: "{% url 'cart_details' %}",
+            success: function(data){
+                console.log(data);
+                badge.text(data.count);
+                cart_total.text(data.cart_total + '/-');
+                if(data.success){
+                    $('#message_div').removeClass("alert-error");
+                    $('#message_div').addClass("alert-success");
+                }else{
+                    $('#message_div').removeClass("alert-success");
+                    $('#message_div').addClass("alert-error");
+                    $('#message_div').show();
+                    $('#message').text(data.message);
+                }
+
+            },
+            error: function(response,error){
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    $(document).ready(function(){
+        UpdateCartItemCount();
+    })
+</script>

@@ -1,0 +1,128 @@
+{% load staticfiles %}
+
+<!-- wpf loader Two -->
+<!--<div id="wpf-loader-two">
+  <div class="wpf-loader-two-inner">
+    <span>NFLM</span>
+  </div>
+</div>-->
+<!-- / wpf loader Two -->
+
+<!-- Start header section -->
+<header id="aa-header">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top custom_nav">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll logo" href="{% url 'home' %}"><img src="{% static 'img/NFLM_Nertia_logo.png' %}" alt="nflm-logo" style="width:122px;height:42px;"/> </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="{% url 'product_list' page=1 %}"><i class="fa fa-shopping-bag"></i> Shop</a></li>
+                <li><a href="{% url 'tag_list' page=1 %}"><i class="fa fa-archive"></i> Collection</a></li>
+                <li><a href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a> </li>
+                {% if not user.is_authenticated %}
+                <li><a href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-user"></i> Login/Sign Up</a></li>
+                {% else %}
+                <li><a href="{% url 'user_orders' %}"><i class="fa fa-user"></i> My Account</a></li>
+                <li><a href="{% url 'account_logout' %}"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav> <!-- End header area -->
+
+<!-- start header bottom  -->
+<div class="aa-header-bottom" style="margin-top: 65px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="aa-header-bottom-area">
+          <!-- logo  -->
+          <!--<div class="aa-logo">-->
+            <!--&lt;!&ndash; Text based logo &ndash;&gt;-->
+            <!--<a href="{% url 'home' %}">-->
+              <!--&lt;!&ndash;<span><img src="{% static 'img/slider/logo.png' %}"></span>&ndash;&gt;-->
+              <!--<p><strong>Nertia</strong> <span>Nail Art Wear</span></p>-->
+            <!--</a>-->
+            <!--&lt;!&ndash; img based logo &ndash;&gt;-->
+             <!--&lt;!&ndash;<a href="index.html"><img src="{% static 'img/slider/benefit_01.png' %}" alt="logo img"></a> &lt;!&ndash;logo to be place benefit_01&ndash;&gt;&ndash;&gt;-->
+          <!--</div>-->
+          <!-- / logo  -->
+           <!-- cart box -->
+          <div class="aa-cartbox">
+            <a class="aa-cart-link" href="{% url 'view_cart' %}">
+              <div class="shopping-item">
+                <a href="{% url 'view_cart' %}">Cart - <span style="color: #0a0a0a" class="cart-amount" id="cart-total">{{ request.session.cart_total }}</span> <i class="fa fa-shopping-cart"></i><span class="product-count" id="cart-count-badge">{{ request.session.cart_count }}</span></a>
+            </div>
+            </a>
+          </div>
+          <!-- / cart box -->
+          <!-- search box -->
+          <div class="aa-search-box">
+            <form action="{% url 'product_list' page=1 %}" method="get">
+              <input type="text" name="q" id="" placeholder="Search Designs Here ex: 'Animal Print Nail Art' ">
+              <button type="submit"><span class="fa fa-search"></span></button>
+            </form>
+          </div>
+          <!-- / search box -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- / header bottom  -->
+</header>
+
+{% if messages %}
+<ul class="messages">
+{% for message in messages %}
+    <li>
+    <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+      <a class="close" data-dismiss="alert">×</a>
+            {% if message.tags %} <strong>{{ message.tags }}</strong>! {% endif %}<p>{{ message }}</p>
+    </div>
+    </li>
+</ul>
+{% endfor %}
+{% else %}
+<div class="alert alert-success messages" id="message_div" style="display: none">
+  <a class="close" data-dismiss="alert">×</a>
+      <span id="message"></span>
+</div>
+{% endif %}
+
+<!-- SCROLL TOP BUTTON -->
+<a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+<!-- END SCROLL TOP BUTTON -->
+
+<!-- Loading
+
+<div class="windows8" id="ajax_loading_animation">
+	<div class="wBall" id="wBall_1">
+		<div class="wInnerBall"></div>
+	</div>
+	<div class="wBall" id="wBall_2">
+		<div class="wInnerBall"></div>
+	</div>
+	<div class="wBall" id="wBall_3">
+		<div class="wInnerBall"></div>
+	</div>
+	<div class="wBall" id="wBall_4">
+		<div class="wInnerBall"></div>
+	</div>
+	<div class="wBall" id="wBall_5">
+		<div class="wInnerBall"></div>
+	</div>
+</div>-->

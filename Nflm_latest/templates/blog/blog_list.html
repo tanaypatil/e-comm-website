@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | BLOG</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<!-- catg header banner section -->
+  <section id="aa-catg-head-banner">
+   <img src="{% static 'img/collection.jpg' %}" alt="fashion img">
+   <div class="aa-catg-head-banner-area">
+     <div class="container">
+      <div class="aa-catg-head-banner-content">
+        <h2 class="list_page_head">Blog</h2>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li class="active">Blog</li>
+        </ol>
+      </div>
+     </div>
+   </div>
+  </section>
+  <!-- / catg header banner section -->
+<!-- Page Content -->
+<div class="container">
+   <div class="row" style="margin-top: 15px">
+      <!-- Blog Entries Column -->
+      <div class="col-md-12">
+         {% for blog in object_list %}
+         <!-- First Blog Post -->
+         <h2 style="margin-top: 15px">
+            <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>
+         </h2>
+         <p class="lead">
+            by <a href="#">{{ blog.user.username }}</a>
+         </p>
+         <p><i class="fa fa-clock-o" aria-hidden="true"></i>Posted on {{ blog.updated }}</p>
+         <!--<hr>-->
+          <div class="product-detail__gallery">
+           <div class="product-slider-wrapper">
+              <div class="product-slider">
+                 {% for img in blog.blog_images.all %}
+                 <div class="item">
+                    <div class="owl-expand">
+                       <i class="fa fa-expand" data-toggle="modal" data-target="#image-view-modal"></i>
+                    </div>
+                    <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-toggle="modal" data-target="#image-view-modal">
+                 </div>
+                 {% endfor %}
+              </div>
+              <div class="product-slider-thumb-row">
+                 <div class="product-slider-thumb">
+                    {% for img in object.product_images.all %}
+                    <div class="item">
+                       <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                    </div>
+                    {% endfor %}
+                 </div>
+              </div>
+           </div>
+        </div>
+
+         <!--<hr>-->
+         <p style="text-align: justify">{{ blog.description|linebreaksbr }}</p>
+         <!--<hr>-->
+         {% endfor %}
+         <!-- Pager -->
+         {% if is_paginated %}
+         <div class="aa-product-catg-pagination">
+            <nav>
+               <ul class="pagination">
+                  {% if page_obj.has_previous %}
+                  <li>
+                     <a href="{% url 'product_list' page=page_obj.previous_page_number %}" aria-label="Previous">
+                     <span aria-hidden="true">&laquo;
+                     </span>
+                     </a>
+                  </li>
+                  {% endif %}
+                  <li>
+                     <a href="">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                     </a>
+                  </li>
+                  {% if page_obj.has_next %}
+                  <li>
+                     <a href="{% url 'product_list' page=page_obj.next_page_number %}" aria-label="Next">
+                     <span aria-hidden="true">&raquo;
+                     </span>
+                     </a>
+                  </li>
+                  {% endif %}
+               </ul>
+            </nav>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+   <!-- /.row -->
+   <hr>
+</div>
+<!-- /.container -->
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

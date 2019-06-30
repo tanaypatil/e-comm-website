@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM| Try Before You Buy</title>
+<style>
+    #heading{
+        font-size: 40px;
+        letter-spacing: 0.06em;
+        color: #1abc9c;
+        font-family: "bebas";
+    }
+
+
+    .frame{
+        border: 3px solid #1abc9c;
+        border-radius: 6px;
+        width: 100%;
+        height: 315px;
+    }
+
+    .loopbox{
+        margin-bottom: 20px;
+    }
+
+    #row1{
+        margin-top: 55px;
+    }
+
+    @media screen and (max-device-width : 320px){
+
+        .frame{
+            width: 280px;
+            height: 215px;
+        }
+        .loopbox{
+            margin-bottom: 30px;
+        }
+        #row1{
+            margin-top: 15px;
+        }
+    }
+</style>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+    <!-- try before buy error section--
+  <section id="aa-error">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-error-area">
+            <h4>Try Before You Buy</h4>
+            <h1>Coming Soon!</h1>
+            <p>An innovative way to try out nail designs on your finger nails.</p>
+            <a href="{% url 'home' %}"> Go to Homepage</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / 404 error section -->
+
+  <section>
+    <div class="container">
+        <div class="row">
+        <div id="heading" class="col-md-offset-4 col-md-4">How To Use Videos</div>
+        </div>
+            <div class="row" id="row1">
+            {% for video in videos %}
+            <div class="loopbox col-md-12">
+                <div class="col-md-6 col-xs-12 col-sm-12">
+                    <iframe class="frame"
+                        src="{{ video.link }}">
+                    </iframe>
+                </div>
+                <div class="col-md-6 col-xs-12 col-sm-12">
+                    <h3>{{ video.title|capfirst }}</h3>
+                    <div class="text-justify">{{ video.description|capfirst|linebreaksbr }}</div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            </div>
+
+    </div>
+  </section>
+
+
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

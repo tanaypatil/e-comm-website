@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="NFLM, Nail Art, Nail Design, Checkout, Proceed to payment">
+    <meta name="description" content="Discover the best Nail Art design with nflm.co.in and find top most popular nail fashion and get your first order free use coupan code on checkout">
+    <title>Nflm Checkout Payment | Summer nail art design 2016</title>
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+
+	
+    {% include 'header.html' %}
+
+    <!-- Cart view section -->
+     <section id="aa-myaccount">
+       <div class="container">
+         <div class="row">
+           <div class="col-md-12">
+            <div class="aa-myaccount-area">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="aa-order-login">
+                    <h4>Login</h4>
+                    <form method="post" action="{% url 'account_login' %}?next={{request.get_full_path}}" class="aa-login-form">{% csrf_token %}
+                        <div class="row" style="margin-bottom: 15px">
+                              <div class="col-xs-6">
+                                  <div class="btn-group-justified">
+                                    <a href="{% provider_login_url 'facebook' method = 'oauth2' %}?next={{request.get_full_path}}" class="btn btn-facebook"><span class="fa fa-facebook" style="background: none"></span>Sign In</a>
+                                </div>
+                              </div>
+                              <div class="col-xs-6">
+                                  <div class="btn-group-justified">
+                                    <a href="{% provider_login_url 'google' %}?next={{request.get_full_path}}" class="btn btn-google"><span class="fa fa-google-plus" style="background: none"></span>Sign In</a>
+                                </div>
+                              </div>
+                        </div>
+                          <label for="">Username or Email address<span>*</span></label>
+                           <input type="text" placeholder="Username or email" name="login" required/>
+                           <label for="">Password<span>*</span></label>
+                            <input type="password" placeholder="Password" name="password" required/>
+                            <button type="submit" class="aa-browse-btn">Login</button>
+                            <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme" name="remember"> Remember me </label>
+                            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+                    </form>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                        <div class="aa-myaccount-register">
+                         <h4>Guest User</h4>
+                         <form method="post" action="{% url 'order_login' id=cart_id %}" class="aa-login-form">{% csrf_token %}
+                            <label for="">Email address<span>*</span></label>
+                            <input type="email" placeholder="Email" name="guest_email" required/>
+                            <button type="submit" class="aa-browse-btn">Proceed</button>
+                          </form>
+                        </div>
+                      </div>
+                </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+     <!-- / Cart view section -->
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+{% endblock %}

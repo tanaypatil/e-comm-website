@@ -1,0 +1,157 @@
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+<!-- footer -->
+<footer id="aa-footer">
+<!-- footer bottom -->
+<div class="aa-footer-top">
+ <div class="container">
+    <div class="row">
+    <div class="col-md-12">
+      <div class="aa-footer-top-area">
+        <div class="row">
+          <div class="col-md-3 col-md-offset-1 col-sm-6">
+            <div class="aa-footer-widget">
+              <h3 class="footer_head">Main Menu</h3>
+              <ul class="aa-footer-nav ">
+                <li><a  class="footer_text" href="{% url 'home' %}">Home</a></li>
+                <li><a  class="footer_text" href="{% url 'product_list' page=1  %}">Your Products</a></li>
+                <li><a  class="footer_text" href="{% url 'blog_list' page=1 %}" target="_blank">Blog</a></li>
+                <li><a  class="footer_text" href="{% url 'about' %}">About Us</a></li>
+                <li><a  class="footer_text" href="{% url 'contact' %}">Contact Us</a></li>
+                <li><a  class="footer_text" href="{% url 'try_before_buy' %}">How To Use</a></li>
+              </ul>
+
+            </div>
+          </div>
+          <div class="col-md-3 col-md-offset-1 col-sm-6">
+            <div class="aa-footer-widget">
+              <div class="aa-footer-widget">
+                <h3  class="footer_head">Customers</h3>
+                <ul class="aa-footer-nav">
+                  <li><a  class="footer_text" href="{% url 'disclaimer' %}">Disclaimer</a></li>
+                  <li><a  class="footer_text" href="{% url 'faq' %}">FAQ</a></li>
+                  <li><a  class="footer_text" href="{% url 'privacy' %}">Privacy Policy</a></li>
+                  <li><a  class="footer_text" href="{% url 'refunds' %}">Refunds & Cancellations</a></li>
+                  <li><a  class="footer_text" href="{% url 'delivery' %}">Delivery & Shipping Policies</a></li>
+                  <li><a  class="footer_text" href="{% url 'terms' %}">Terms & Conditions</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-md-offset-1 col-sm-6">
+            <div class="aa-footer-widget">
+              <div class="aa-footer-widget">
+                <h3  class="footer_head">Account</h3>
+                <ul class="aa-footer-nav">
+                  <li><a  class="footer_text" href="{% url 'user_orders' %}">My Account</a></li>
+                  <li><a  class="footer_text" href="{% url 'view_wishlist' %}">Wishlist</a></li>
+                  <li><a  class="footer_text" href="{% url 'view_cart' %}">Cart</a></li>
+                   {% if user.is_authenticated %}
+                    <li><a  class="footer_text" href="{% url 'add_affiliate' %}">NFLM Ambasador</a></li>
+                    <li><a  class="footer_text" href="{% url 'customization' %}">Custom Design</a></li>
+                    <li><a  class="footer_text" href="{% url 'referral_share' %}">Refer your Friend</a></li>
+                    {% else %}
+                    <li><a  class="footer_text" href="{% url 'affiliate_login' %}">NFLM Ambasador</a></li>
+                    <li><a  class="footer_text" href="{% url 'customization_login' %}">Custom Design</a></li>
+                    <li><a  class="footer_text" href="{% url 'referral_login' %}">Refer your Friend</a></li>
+                   {% endif %}
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+    <div class="aa-footer-social-area">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-4 center">
+                <div class="aa-footer-top-area">
+                    <div class="aa-footer-widget">
+                        <div class="aa-footer-social">
+                          <a href="https://www.facebook.com/pages/NFLM-Designer-Nailwear/349645048497105" target="_blank"><span class="fa fa-facebook"></span></a>
+                          <a href="https://twitter.com/SumitN1553" target="_blank"><span class="fa fa-twitter"></span></a>
+                          <a href="https://plus.google.com/u/0/b/108475466265779580980/108475466265779580980/posts" target="_blank"><span class="fa fa-google-plus"></span></a>
+                          <a href="https://www.youtube.com/channel/UCjZUeQ59ZSf0rNYJGN0dr9Q" target="_blank"><span class="fa fa-youtube"></span></a>
+                          <a href="https://in.pinterest.com/NFLMcoin/" target="_blank"><span class="fa fa-pinterest-p"></span></a>
+                          <a href="https://www.instagram.com/nertia_nailwear/" target="_blank"><span class="fa fa-instagram"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+ </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4>Login or Register</h4>
+      <div class="row omb_row-sm-offset-3 omb_socialButtons">
+            <div class="col-xs-6">
+                <a href="{% provider_login_url 'facebook' method = 'oauth2' %}?next={{request.get_full_path}}" class="btn btn-lg btn-block omb_btn-facebook">
+                    <i class="fa fa-facebook visible-xs"></i>
+                    <span class="hidden-xs">Facebook</span>
+                </a>
+            </div>
+            <div class="col-xs-6">
+                <a href="{% provider_login_url 'google' %}?next={{request.get_full_path}}" class="btn btn-lg btn-block omb_btn-google">
+                    <i class="fa fa-google-plus visible-xs"></i>
+                    <span class="hidden-xs">Google+</span>
+                </a>
+            </div>
+      </div>
+      <form class="aa-login-form" method="post" action="{% url 'account_login' %}?next={{request.get_full_path}}">{% csrf_token %}
+        <label>Username or Email address<span>*</span></label>
+        <input type="text" placeholder="Username or email" name="login">
+        <label>Password<span>*</span></label>
+        <input type="password" placeholder="Password" name="password">
+        <button class="aa-browse-btn" type="submit">Login</button>
+        <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme" name="remember"> Remember me </label>
+        <p class="aa-lost-password"><a href="{% url 'account_reset_password' %}">Lost your password?</a></p>
+        <div class="aa-register-now">
+          Don't have an account?<a href="{% url 'account_signup' %}?next={{request.get_full_path}}">Register now!</a>
+        </div>
+      </form>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+<!-- footer-bottom -->
+<div class="aa-footer-bottom">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-footer-bottom-area">
+
+            <div class="aa-footer-payment">
+              <!--<span class="fa fa-cc-mastercard"></span>-->
+              <!--<span class="fa fa-cc-visa"></span>-->
+              <!--<span><img src="{% static 'img/instamojo-logo.png' %}" style="width:200px"/></span>-->
+              <!--<span class="fa fa-cc-discover"></span>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="col-md-12">
+            <div class="aa-footer-copyright-area">
+              <p class="text-center footer_text">NFLM was ideated,hatched & developed at Visvesvaraya National Institute of Technology</p>
+              <p class="text-center footer_text">© 2016 NFLM Cosmotech Pvt Ltd</p>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+</footer>
+<!-- / footer -->

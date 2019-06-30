@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load crispy_forms_tags %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | Nflm Checkout Payment- summer nail art design 2016</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<!-- Cart view section -->
+<section id="checkout">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="checkout-area">
+
+                  <div class="row">
+                     <div class="col-md-8">
+                        <div class="checkout-left">
+                           <div class="panel-group" id="accordion">
+                              <form method="post" action="{% url 'payment_initiated' %}">{% csrf_token %}
+                              <!-- Billing Details -->
+                              <div class="panel panel-default aa-checkout-billaddress">
+                                 <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                       Delivery Details
+                                       </a>
+                                    </h4>
+                                 </div>
+                                 <div id="collapseThree" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                       {% if request.user.is_authenticated %}
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             <!-- product category -->
+                                             <section id="aa-product-category">
+                                                <div class="aa-product-catg-content" id="select-address">
+                                                   <div class="aa-product-catg-body">
+                                                      <ul class="aa-product-catg">
+                                                         <!-- start single product item -->
+                                                         {% for address in user.user_addresses.all %}
+                                                         <li class="user-address-li">
+                                                            <figure class="user-address">
+                                                               <p style="color: #1abc9c">{{ address.name }}</p>
+                                                               <p>{{ address.address }}</p>
+                                                               <p>{{ address.address2 }}</p>
+                                                               <p><strong>City: </strong>{{ address.city }}</p>
+                                                               <p><strong>State: </strong>{{ address.state }}</p>
+                                                               <p><strong>Zipcode: </strong>{{ address.zipcode }}</p>
+                                                               <p><strong>Phone: </strong>{{ address.phone }}</p>
+                                                               <div class="user-address-deliver-options">
+                                                                  <a href="#" class="aa-browse-btn user-address-deliver" id="select_address{{ address.id }}" onclick="SelectAddress('{{ address.id }}');">Deliver Here</a>
+                                                               </div>
+                                                            </figure>
+                                                         </li>
+                                                         {% endfor %}
+                                                         <input type="hidden" name="order_id" value="{{ order.id }}"/>
+                                                         <input type="hidden" id="address_id_hidden" name="address_id" value="{{ user.user_addresses.all.0.id }}"/>
+                                                      </ul>
+                                                   </div>
+                                                   <a href="{% url 'add_address' %}?next={{request.get_full_path}}" class="aa-browse-btn user-address-add">Add New Address</a>
+                                                </div>
+                                             </section>
+                                          </div>
+                                       </div>
+                                       {% else %}
+                                       <div class="row">
+                                          <div class="col-md-6">
+                                             {% if form.address.errors %}
+                                             <span class="error">{{ form.address.errors }}</span>
+                                             {% endif %}
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="text" name="address" placeholder="Address Line1*"/>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="text" name="address2" placeholder="Address Line2">
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-6">
+                                             {% if form.email.errors %}
+                                             <span class="error">{{ form.email.errors }}</span>
+                                             {% endif %}
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="email" name="email" placeholder="Email Address*">
+                                             </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                             {% if form.phone.errors %}
+                                             <span class="error">{{ form.phone.errors }}</span>
+                                             {% endif %}
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="tel" name="phone" placeholder="Phone*" required/>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="text" name="country" value="India" disabled/>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             {% if form.state.errors %}
+                                             <span class="error">{{ form.state.errors }}</span>
+                                             {% endif %}
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="text" placeholder="State*" name="state" required/>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-6">
+                                             {% if form.city.errors %}
+                                             <span class="error">{{ form.city.errors }}</span>
+                                             {% endif %}
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="text" name="city" placeholder="City / Town*" required/>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                             {% if form.zipcode.errors %}
+                                             <span class="error">{{ form.zipcode.errors }}</span>
+                                             {% endif %}
+                                             <div class="aa-checkout-single-bill">
+                                                <input type="text" placeholder="Postcode / ZIP*" name="zipcode" required/>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <input type="hidden" name="country" value="India"/>
+                                       <input type="hidden" name="order_id" value="{{ order.id }}"/>
+
+                                       {% endif %}
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- Payment section -->
+                              <div class="panel panel-default aa-checkout-coupon">
+                                 <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                       Payment Method
+                                       </a>
+                                    </h4>
+                                 </div>
+                                 <div id="collapseOne" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                       <div class="aa-payment-method">
+                                          <div class="row">
+                                             <label for="cashdelivery"><input type="radio" id="cashdelivery" name="payment_method" value="Instamojo"> Instamojo</label>
+                                          </div>
+                                          <!--<div class="row">-->
+                                             <!--<label for="paypal"><input type="radio" id="paypal" name="payment_method" value="CCAvenue" checked> Via CC Avenue </label>-->
+                                          <!--</div>-->
+                                          <div class="row">
+                                             <img src="{% static 'img/instamojo-logo.png' %}" style="width:200px" border="0" alt="Instamojo Logo">
+                                          </div>
+                                          <div class="row">
+                                             <input type="submit" value="Place Order" class="aa-browse-btn">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="checkout-right">
+                           <h4>Order Summary</h4>
+                           <div class="aa-order-summary-area">
+                              <table class="table table-responsive">
+                                 <thead>
+                                    <tr>
+                                       <th>Product</th>
+                                       <th>Total</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for cart_item in order.cart.cart_items.all %}
+                                    <tr>
+                                       <td><span class="order-summary-span">{{ cart_item.product.title }} </span><strong class="order-summary-strong"> x  {{ cart_item.quantity }}</strong></td>
+                                       <td>Rs {{ cart_item.line_total }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                 </tbody>
+                                 <tfoot>
+                                    <tr>
+                                       <th>Shipping</th>
+                                       <td>{% if order.shipping_charge == 0 %}Free{% else %}{{ order.shipping_charge }}{% endif %}</td>
+                                    </tr>
+                                    {% if order.cart.gift_wrap %}
+                                    <tr>
+                                       <th>Gift</th>
+                                       <td>Rs {{ gift_cost }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if order.cart.coupon %}
+                                    <tr>
+                                       <th>Coupon Discount</th>
+                                       <td>Rs {{ order.cart.coupon_discount }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    <tr>
+                                       <th>Total</th>
+                                       <td>Rs {{ order.cart.get_final_total|add:order.shipping_charge }}</td>
+                                    </tr>
+                                 </tfoot>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
+</section>
+<!-- / Cart view section -->
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+<script>
+   function SelectAddress(id){
+       $('#select-address a').removeClass('selected');
+       $('#select_address'+id).addClass('selected');
+       $('#address_id_hidden').val(id)
+       $('#collapseThree').removeClass('in');
+       $('#collapseOne').addClass('in');
+   }
+
+   function AddressConfirm(){
+       event.preventDefault()
+       $('#collapseThree').removeClass('in');
+       $('#collapseOne').addClass('in');
+   }
+   
+   function PlaceOrder(){
+       $.ajax({
+           type: "GET",
+           url: "{% url 'payment_initiated' %}",
+           data: {
+               'id': '{{ cart.id }}',
+               'notes': $('#gift_notes').val(),
+               'checked': checked
+           },
+           success: function(data){
+               console.log(data);
+               if(data.success){
+                   if((data.gift_cost) == 0){
+                       gift_wrap_span.text("Free");
+                       cart_total_span.text("Rs" + data.subtotal);
+                       if($('#gift_checkbox').is(":checked")){
+                           $('#gift_total').show();
+                           $('#cart_total').show();
+                       }
+                   }else{
+                       gift_wrap_span.text("Rs" + data.gift_cost);
+                       cart_total_span.text("Rs" + data.subtotal);
+                       if($('#gift_checkbox').is(":checked")){
+                           $('#gift_total').show();
+                           $('#cart_total').show();
+                       }
+                   }
+               }else{
+                   alert("Some Error Occurred. Please try Again.")
+               }
+           },
+           error: function(response,error){
+               alert('error')
+           }
+       })
+   }
+   
+</script>
+{% endblock %}

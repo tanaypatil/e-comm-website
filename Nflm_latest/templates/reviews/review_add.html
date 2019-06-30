@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+<meta charset="utf-8" xmlns="http://www.w3.org/1999/html">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | Add Review</title>
+{% include 'head_css.html' %}
+<script type="text/javascript">
+
+
+</script>
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<div class="container">
+   <div class="row">
+      <div class="col-md-3">
+         <div class="account-section">
+            <h4>Product</h4>
+            <ul class="section-list">
+               <li id="review-image"><img src="{{ product.product_images.all.0.image.url }}" alt="{{ product.product_images.all.0.alt_text }}"></li>
+               <li class="active"><a href="{{ product.get_absolute_url }}"> {{ product.title }}</a></li>
+            </ul>
+         </div>
+      </div>
+      <div class="col-md-9">
+         <div class="account-container">
+            <h1>Add Review</h1>
+            <form method="post" class="aa-login-form" action="" enctype="multipart/form-data">{% csrf_token %}
+               <div class="form-group">
+                  <label for="exampleInputName">Public Name</label>
+                  <input type="text" class="form-control" id="exampleInputName" value="{{ review.nickname }}" name="nickname">
+                  <p class="help-text">Name to be displayed Publicly</p>
+                  {% if postForm.nickname.errors %}
+                  <span id="helpBlock2" class="help-block">{{ postForm.nickname.errors }}</span>
+                  {% endif %}
+               </div>
+               <div class="form-group">
+                  <label for="exampleInputRating">Rating</label>
+                  <select class="form-control" name="rating">
+                     {% if review.rating == 1 %}
+                          <option selected="selected">1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                     {% elif review.rating == 2 %}
+                          <option>1</option>
+                          <option selected="selected">2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                     {% elif review.rating == 3 %}
+                          <option>1</option>
+                          <option>2</option>
+                          <option selected="selected">3</option>
+                          <option>4</option>
+                          <option>5</option>
+                     {% elif review.rating == 4 %}
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option selected="selected">4</option>
+                          <option>5</option>
+                     {% else %}
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option selected="selected">5</option>
+                     {% endif %}
+                  </select>
+                  {% if postForm.rating.errors %}
+                  <span id="helpBlock2" class="help-block error">{{ postForm.rating.errors }}</span>
+                  {% endif %}
+               </div>
+               <div class="form-group">
+                  <label for="exampleInputComment">Comment</label>
+                  <textarea  class="form-control" id="exampleInputComment" name="comment">{{ review.comment }}</textarea>
+                  {% if postForm.comment.errors %}
+                  <span id="helpBlock2" class="help-block error">{{ postForm.comment.errors }}</span>
+                  {% endif %}
+               </div>
+               <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="exampleInputImage1">Image1:</label>
+                        <input type="file" id="exampleInputImage1" name="image1" onchange="upload_img(this);">
+                    </div>
+                    <div class="col-md-6">
+                        {% if review.review_images.all.0 %}
+                        <img id="img_id" src="{{ review.review_images.all.0.image.url }}" alt="review image" />
+                        {% else %}
+                        <img id="img_id" src="" alt="review image" style="display: none"/>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2">
+                        {% if review.review_images.all.0 %}
+                        <input type="checkbox" class="image-remove" id="image_remove" name="image_id" value="{{ review.review_images.all.0.id }}">Remove
+                        {% else %}
+                        <input type="checkbox" style="display: none" class="image-remove" id="image_remove" name="image_id" value="{{ review.review_images.all.0.id }}"><span class="image-span" id="image_span">Remove</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="help-text"></p>
+               </div>
+               <div class="form-group">
+                 <div class="row">
+                    <div class="col-md-4">
+                        <label for="exampleInputImage2">Image2:</label>
+                        <input type="file" id="exampleInputImage2" name="image2" onchange="upload_img1(this);">
+                    </div>
+                    <div class="col-md-6">
+                        {% if review.review_images.all.1 %}
+                        <img id="img_id1" src="{{ review.review_images.all.1.image.url }}" alt="review image" />
+                        {% else %}
+                        <img id="img_id1" src="" alt="review image" style="display: none"/>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2">
+                        {% if review.review_images.all.1 %}
+                        <input type="checkbox" class="image-remove" id="image_remove1" name="image_id" value="{{ review.review_images.all.1.id }}">Remove
+                        {% else %}
+                        <input type="checkbox" style="display: none" class="image-remove" id="image_remove1" name="image_id" value="{{ review.review_images.all.1.id }}"><span class="image-span" id="image_span1">Remove</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="help-text"></p>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label for="exampleInputImage3">Image3:</label>
+                        <input type="file" id="exampleInputImage3" name="image3" onchange="upload_img2(this);">
+                    </div>
+                    <div class="col-md-6">
+                        {% if review.review_images.all.2 %}
+                        <img id="img_id2" src="{{ review.review_images.all.2.image.url }}" alt="review image" />
+                        {% else %}
+                        <img id="img_id2" src="" alt="review image" style="display: none"/>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2">
+                        {% if review.review_images.all.2 %}
+                        <input type="checkbox" class="image-remove" id="image_remove2" name="image_id" value="{{ review.review_images.all.2.id }}">Remove
+                        {% else %}
+                        <input type="checkbox" style="display: none" class="image-remove" id="image_remove2" name="image_id" value="{{ review.review_images.all.2.id }}"><span class="image-span" id="image_span2">Remove</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="help-text"></p>
+               </div>
+               <button type="submit" style="margin-bottom: 30px;" class="aa-browse-btn">Submit</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

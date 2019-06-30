@@ -1,0 +1,117 @@
+@font-face {
+    font-family: "bebas";
+    src: url(BEBAS.TTF);
+}
+
+body{
+  background-color: #f7afaf !important;
+}
+
+.home {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+}
+.like {
+  font-size: 159.39px;
+  font-family: "bebas";
+  color: rgb(252, 65, 65);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 40.96875%;
+  top: 38.3672%;
+  z-index: 10;
+}
+.you {
+  font-size: 92.39px;
+  font-family: "bebas";
+  color: rgb(254, 254, 254);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 43.989583%;
+  top: 44.820926%;
+  z-index: 9;
+}
+.what {
+  font-size: 92.39px;
+  font-family: "Bebas";
+  color: rgb(254, 254, 254);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 41.3854%;
+  top: 44.820926%;
+  z-index: 8;
+}
+.vote {
+  font-size: 92.39px;
+  font-family: "bebas";
+  color: rgb(254, 254, 254);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 42.427%;
+  top: 44.820926%;
+  z-index: 7;
+}
+.battle {
+  font-size: 92.39px;
+  font-family: "bebas";
+  color: rgb(254, 77, 77);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 40.60416%;
+  top: 44.820926%;
+  z-index: 6;
+}
+.Nail_Art {
+  font-size: 150.39px;
+  font-family: "bebas";
+  color: rgb(255, 255, 255);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 35.0833%;
+  top: 40.99685%;
+  z-index: 5;
+}
+.Ultimate {
+  font-size: 92.387px;
+  font-family: "bebas";
+  color: rgb(254, 77, 77);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 38.3125%;
+  top: 44.96%;
+  z-index: 4;
+}
+.The_ {
+  font-size: 92.387px;
+  font-family: "bebas";
+  color: rgb(254, 253, 253);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 44.09375%;
+  top: 44.8211%;
+  z-index: 3;
+}
+
+
+.begin{
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    font-size: 56px;
+    color: #ffffff;
+    font-family: "bebas";
+    z-index: 600;
+    cursor: pointer;
+}

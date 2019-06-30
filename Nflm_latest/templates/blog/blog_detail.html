@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | {{ object.metatag.title }}</title>
+<meta name="description" content="{{ object.metatag.description }}">
+<meta name="keywords" content="{{ object.metatag.keywords }}">
+<meta name="robots" content="index/follow"/>
+{% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+{% include 'header.html' %}
+
+<!-- Page Content -->
+<div class="container">
+   <div class="row">
+      <!-- Blog Entries Column -->
+      <div class="col-md-12">
+         <!-- First Blog Post -->
+         <h2>
+            <a href="#">{{ object.title }}</a>
+         </h2>
+         <p class="lead">
+            by <a href="#">{{ object.user.username }}</a>
+         </p>
+         <p><i class="fa fa-clock-o" aria-hidden="true"></i>Posted on {{ object.updated }}</p>
+         <!--<hr>-->
+          <div class="product-detail__gallery">
+           <div class="product-slider-wrapper">
+              <div class="product-slider">
+                 {% for img in object.blog_images.all %}
+                 <div class="item">
+                    <div class="owl-expand">
+                       <i class="fa fa-expand" data-toggle="modal" data-target="#image-view-modal"></i>
+                    </div>
+                    <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-toggle="modal" data-target="#image-view-modal">
+                 </div>
+                 {% endfor %}
+              </div>
+              <div class="product-slider-thumb-row">
+                 <div class="product-slider-thumb">
+                    {% for img in object.product_images.all %}
+                    <div class="item">
+                       <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                    </div>
+                    {% endfor %}
+                 </div>
+              </div>
+           </div>
+        </div>
+
+         <!--<hr>-->
+         <p>{{ object.description|linebreaks }}</p>
+         <!--<hr>-->
+      </div>
+   </div>
+   <!-- /.row -->
+   <hr>
+</div>
+<!-- /.container -->
+
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

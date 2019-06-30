@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ object.metatag.title }}</title>
+<meta name="description" content="{{ object.metatag.description }}">
+<meta name="keywords" content="{{ object.metatag.keywords }}">
+<meta name="robots" content="index/follow"/>
+<!-- You can use Open Graph tags to customize link previews.
+   Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+<meta property="og:url"           content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"          content="article" />
+<meta property="og:title"         content="nflm.co.in" />
+<meta property="og:description"   content="{{ object.title }}" />
+<meta property="og:image"         content="http://127.0.0.1:8000{{ object.product_images.all.0.image.url }}" />
+{% include 'head_css.html' %}
+
+{% endblock %}
+{% block content %}
+<div id="fb-root"></div>
+
+{% include 'header.html' %}
+<section id="aa-product-details">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="aa-product-details-area">
+               <div class="aa-product-details-content">
+                  <div class="row">
+                     <!-- Modal view slider -->
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="product-detail__gallery">
+                           <div class="product-slider-wrapper">
+                              <div class="product-slider">
+                                 {% for img in object.product_images.all %}
+                                 <div class="item">
+                                    <div class="owl-expand">
+                                       <i class="fa fa-expand" data-toggle="modal" data-target="#image-view-modal"></i>
+                                    </div>
+                                    <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-toggle="modal" data-target="#image-view-modal">
+                                 </div>
+                                 {% endfor %}
+                              </div>
+                              <div class="product-slider-thumb-row">
+                                 <div class="product-slider-thumb">
+                                    {% for img in object.product_images.all %}
+                                    <div class="item">
+                                       <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                                    </div>
+                                    {% endfor %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Modal view content -->
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="aa-product-view-content">
+                           <h3>{{ object.title }}</h3>
+                           <div class="aa-price-block">
+                              {% if object.sale_price %}
+
+                              <span class="aa-product-view-price">Rs {{ object.price }}</span>
+                              <span class="aa-product-sale-price">Rs {{ object.sale_price }}</span>
+                              {% else %}
+                              <span class="aa-product-sale-price">Rs {{ object.price }}</span>
+                              {% endif %}
+                           </div>
+                           <!-- facebook like button code -->
+                           <div class="fb-like" data-href="{{ request.build_absolute_uri }}"
+                              data-layout="button_count"
+                              data-action="like"
+                              data-show-faces="true"
+                              data-share="true"></div>
+                           <!--  <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"><i class="fa-facebook-square"></i> </a> -->
+                           <h4>Product Highlights:</h4>
+                           <div class="product-highlights">
+                              <p class="">{{ object.highlights|linebreaks }}</p>
+                           </div>
+                           <div class="aa-prod-quantity">
+                              <p class="aa-product-avilability">Availability: {% if object.stock > 0 %}<span>In stock</span>{% else %}<span style="color: red">Out of Stock</span>{% endif %}</p>
+                              <p class="aa-product-avilability">SKU: <span>{{ object.sku }}</span></p>
+                              <form action="">
+                                 <span>Quantity:</span>
+                                 <input type="number" min="1" id="product_quantity" name="quantity" max="{{ object.stock }}" value="1">
+                              </form>
+                           </div>
+                           <div class="aa-prod-view-bottom">
+                              {% if object.stock == 0 %}
+                              <a class="aa-add-to-cart-btn" href="#" data-toggle="modal" data-target="#notification-modal{{ object.id }}">Notify Me</a>
+                              {% else %}
+                              <a class="aa-add-to-cart-btn" id="add_to_cart" href="#" onclick="addtoCart(event);">Add To Cart</a>
+                              <a class="aa-add-to-cart-btn" id="added_to_cart" href="#" style="display: none"><i class="fa fa-check"></i>Added to Cart</a>
+                              {% endif %}
+                              {% if user.is_authenticated %}
+                              <a class="aa-add-to-cart-btn" id="add_to_wishlist" href="#" onclick="addtoWishlist(event);">Wishlist</a>
+                              <a class="aa-add-to-cart-btn" id="added_to_wishlist" href="#" style="display: none;"><i class="fa fa-check"></i>Added to Wishlist</a>
+                              {% else %}
+                              <a class="aa-add-to-cart-btn" data-toggle="modal" data-target="#login-modal" href="">Wishlist</a>
+                              {% endif %}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="aa-product-details-bottom">
+                  <ul class="nav nav-tabs" id="myTab2">
+                     <li><a href="#description" data-toggle="tab">Description</a></li>
+                     <li><a href="#review" data-toggle="tab">Reviews</a></li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                     <div class="tab-pane fade" id="description">
+                        <p>{{ object.description|linebreaks }}</p>
+                     </div>
+                     <div class="tab-pane fade in active" id="review">
+                        <div class="aa-product-review-area">
+                           {% if object.product_reviews.all|length == 0 %}
+                           <h4>No Reviews Yet</h4>
+                           {% else %}
+                           <h4>{{ object.product_reviews.all|length }} Reviews for {{ object.title }}</h4>
+                           <ul class="aa-review-nav">
+                              <li>
+                                 {% for review in object.product_reviews.all %}
+                                 <div class="media">
+                                    <div class="media-left">
+                                       <a href="#">
+                                       <img class="media-object" src="{% static 'img/testimonial-img-3.jpg' %}" alt="image">
+                                       </a>
+                                    </div>
+                                    <div class="media-body">
+                                       <h4 class="media-heading"><strong>{{ review.nickname }}</strong> - <span>{{ review.pub_date }}</span></h4>
+                                       <div class="aa-product-rating">
+                                          {% if review.rating == 1 %}
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          {% elif review.rating == 2 %}
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          {% elif review.rating == 3 %}
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          {% elif review.rating == 4 %}
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star-o"></span>
+                                          {% elif review.rating == 5 %}
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          <span class="fa fa-star"></span>
+                                          {% endif %}
+                                       </div>
+                                       <p>{{ review.comment }}</p>
+                                       <div class="review-images">
+                                            <div class="row">.
+                                                 {% for img in review.review_images.all %}
+                                                 <div class="col-md-3 item">
+                                                    <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-toggle="modal" data-target="#review-images-modal{{ review.id }}">
+                                                 </div>
+                                                 {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 {% endfor %}
+                              </li>
+                           </ul>
+                           {% endif %}
+                           <a href="{% url 'add_review' product_id=object.id %}" class="btn btn-default aa-review-submit write-review">Write a Review</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- quick view modal -->
+<div class="modal fade image-view-modal" id="image-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="row">
+               <!-- Modal view slider -->
+               <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="aa-product-view-slider">
+                     <div class="product-detail__gallery">
+                        <div class="product-slider-wrapper">
+                           <div class="product-slider">
+                              {% for img in object.product_images.all %}
+                              <div class="item">
+                                 <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-highres="{{ img.image.url }}">
+                              </div>
+                              {% endfor %}
+                           </div>
+                           <div class="product-slider-thumb-row">
+                              <div class="product-slider-thumb">
+                                 {% for img in object.product_images.all %}
+                                 <div class="item">
+                                    <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                                 </div>
+                                 {% endfor %}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+<!-- review images view modal -->
+{% for review in object.product_reviews.all %}
+<div class="modal fade review-images-modal{{ review.id }}" id="review-images-modal{{ review.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Review Images</h4>
+            <div class="row">
+               <!-- Modal view slider -->
+               <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="aa-product-view-slider">
+                     <div class="product-detail__gallery">
+                        <div class="product-slider-wrapper">
+                           <div class="review-image-slider">
+                              {% for img in review.review_images.all %}
+                              <div class="item">
+                                 <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                              </div>
+                              {% endfor %}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+{% endfor %}
+ <!-- Notification Modal -->
+{% if object.stock == 0 %}
+<div class="modal fade" id="notification-modal{{ object.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4>We will notify you as soon as it gets back in stock.</h4>
+      <form class="aa-login-form">
+        <label for="">Email address<span>*</span></label>
+        <input type="email" id="notification-email{{ object.id }}" placeholder="email" name="email" required/>
+        <label for="">Mobile<span>*</span></label>
+        <input type="number" id="notification-mobile{{ object.id }}" placeholder="Password" name="mobile"/>
+        <input type="hidden" name="id" value="{{ object.id }}"/>
+        <button class="aa-browse-btn" type="submit" onclick="notification_submit(event,'{{ object.id }}');" style="float: none">Submit</button>
+      </form>
+      <span id="notification-modal-message"></span>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+{% endif %}
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+<script>(function(d, s, id) {
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) return;
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1593231034259084";
+   fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+    function addtoCart(e){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_cart' slug=object.slug %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'qty' : $('#product_quantity').val()
+            },
+            success: function(data){
+                $('#ajax_loading_animation').hide();
+                console.log(data);
+                $('#add_to_cart').hide();
+                $('#added_to_cart').fadeIn();
+                if(data.success){
+                    $('#message_div').removeClass("alert-error");
+                    $('#message_div').addClass("alert-success");
+                }else{
+                    $('#message_div').removeClass("alert-success");
+                    $('#message_div').addClass("alert-error");
+                }
+                $('#message_div').show();
+                $('#message').text(data.message);
+                UpdateCartItemCount();
+            },
+            error: function(response,error){
+                $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    function addtoWishlist(e){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_wishlist' slug=object.slug %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data){
+                $('#ajax_loading_animation').hide();
+                console.log(data);
+                $('#add_to_wishlist').hide();
+                $('#added_to_wishlist').fadeIn();
+                $('#message_div').show();
+                $('#message').text(data.success);
+            },
+            error: function(response,error){
+                $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    function notification_submit(e,id){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'stock_notification' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'id':id,
+                'email':$('#notification-email' + id).val(),
+                'mobile':$('#notification-mobile' + id).val()
+            },
+            success: function(data){
+                console.log(data);
+                if(data.success){
+                    $('#notification-modal-message').addClass("success");
+                    $('#notification-modal-message').removeClass("error");
+                    $('#notification-modal-message').text(data.message)
+                }else{
+                    $('#notification-modal-message').addClass("error");
+                    $('#notification-modal-message').removeClass("success");
+                    $('#notification-modal-message').text(data.message)
+                }
+            },
+            error: function(response,error){
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM |User Address</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<div class="container">
+   <div class="row">
+      {% include 'myaccount_sidebar.html' %}
+      <div class="col-md-9">
+         <div class="account-container">
+            <!-- product category -->
+            <section id="aa-product-category">
+               <div class="aa-product-catg-content">
+                  <div class="aa-product-catg-body">
+                     <ul class="aa-product-catg">
+                        <!-- start single product item -->
+                        {% for address in user_addresses %}
+                        <li class="user-address-li">
+                           <figure class="user-address">
+                              <p style="color: #1abc9c">{{ address.name }}</p>
+                              <p>{{ address.address }}</p>
+                              <p>{{ address.address2 }}</p>
+                              <p><strong>City: </strong>{{ address.city }}</p>
+                              <p><strong>State: </strong>{{ address.state }}</p>
+                              <p><strong>Zipcode: </strong>{{ address.zipcode }}</p>
+                              <p><strong>Phone: </strong>{{ address.phone }}</p>
+                              <div class="user-address-options">
+                                    <a href="{% url 'update_address' id=address.id %}"><span class="fa fa-pencil"></span>Edit</a>
+                                    <a href="{% url 'delete_address' id=address.id %}"><span class="fa fa-trash"></span>Delete</a>
+                               </div>
+                           </figure>
+                        </li>
+                        {% endfor %}
+                     </ul>
+
+                  </div>
+                  <a href="{% url 'add_address' %}" class="aa-browse-btn user-address-add">Add New Address</a>
+               </div>
+            </section>
+            <!-- / product category -->
+         </div>
+      </div>
+   </div>
+</div>
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

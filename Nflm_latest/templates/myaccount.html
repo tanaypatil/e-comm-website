@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="NFLM Account, Nail Art Account, Nail Design Account">
+<meta name="description" content="My Account gives you quick access to settings and tools for managing your nflm
+experience on products like nail art ,latest nail art fashion, trendy nails.">
+<title>NFLM | My Account | Quick and easy access of your nail art collection</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<div class="container">
+   <div class="row">
+      {% include 'myaccount_sidebar.html' %}
+      <div class="col-md-9">
+         <div class="account-container">
+            <!-- Cart view section -->
+            <section id="cart-view">
+               <div class="cart-view-area">
+                  <div class="cart-view-table" style="background-color: transparent;padding: 0">
+                     {% if orders|length > 0 %}
+                     <form action="">
+                        <div class="table-responsive">
+                           <table class="table">
+                              <thead>
+                                 <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Order Status</th>
+                                    <th>Total Items</th>
+                                    <th>Total</th>
+                                    <th>Gift Wrap</th>
+                                    <th>Details</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 {% for order in orders %}
+                                 <tr>
+                                    <td>{{ order.order_id }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>{{ order.status }}</td>
+                                    <td>{{ order.order_items.all|length }}</td>
+                                    <td>Rs {{ order.get_final_amount }}</td>
+                                    <td>
+                                       {% if order.gift_wrap %}
+                                       <a href="#">
+                                          <fa class="fa fa-check"></fa>
+                                       </a>
+                                       {% else %}
+                                       <a class="remove" href="#">
+                                          <fa class="fa fa-close"></fa>
+                                       </a>
+                                       {% endif %}
+                                    </td>
+                                    <td><a href="{% url 'view_order' id=order.id %}">View Details</a></td>
+                                 </tr>
+                                 {% endfor %}
+                              </tbody>
+                           </table>
+                        </div>
+                     </form>
+                     {% else %}
+                     <h1>You haven't ordered any items yet</h1>
+                     {% endif %}
+                  </div>
+               </div>
+            </section>
+            <!-- / Cart view section -->
+         </div>
+      </div>
+   </div>
+</div>
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

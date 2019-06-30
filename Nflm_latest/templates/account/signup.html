@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Nail Art Account, Nai Design Account, NFLM signup, NFLM login, signup, login">
+    <meta name="description" content="Create an account or sign up in nflm. By clicking on Sign up, you will get the
+    benefit of free nail art stickers with no shipping charge with in 5 days.">
+    <title>NFLM |  Log In or Sign Up and get Free Nail Wear</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+
+	
+    {% include 'header.html' %}
+
+    <!-- Cart view section -->
+     <section id="aa-myaccount">
+       <div class="container">
+         <div class="row">
+           <div class="col-md-12">
+            <div class="aa-myaccount-area">
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="image-sidebar">
+                          <img src="{% static 'img/slider/s1.jpg' %}">
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="aa-myaccount-login">
+                    <h4>SignUp</h4>
+                    <form method="post" action="{% url 'account_signup' %}?next={{request.get_full_path}}" class="aa-login-form">{% csrf_token %}
+                        <div class="row" style="margin-bottom: 15px">
+                              <div class="col-xs-6">
+                                  <div class="btn-group-justified">
+                                    <a href="{% provider_login_url 'facebook' method = 'oauth2' %}?next={{request.get_full_path}}" class="btn btn-facebook"><span class="fa fa-facebook" style="background: none"></span>Sign Up</a>
+                                </div>
+                              </div>
+                              <div class="col-xs-6">
+                                  <div class="btn-group-justified">
+                                    <a href="{% provider_login_url 'google' method = 'oauth2'%}?next={{request.get_full_path}}" class="btn btn-google"><span class="fa fa-google-plus" style="background: none"></span>Sign Up</a>
+                                </div>
+                              </div>
+                        </div>
+                        {{ form|crispy }}
+                        <input type="hidden" id="verification_sessionid"/>
+                        <div class="form-group" id="verification-div" style="display:none">
+                            <label for="verification_code">Verification Code</label>
+                            <input type="number" class="form-control" id="verification_code" placeholder="Verification Code">
+                            <button type="submit" class="aa-browse-btn" id="verification_check">Check</button>
+                        </div>
+                        <button type="submit" class="aa-browse-btn" id="register_button" disabled>Register</button>
+                        <p class="aa-account-exist">Already have Account? <a href="{% url 'account_login' %}">Log in HERE</a></p>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+     <!-- / Cart view section -->
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+    <script>
+        $('#id_mobile').blur(function(event){
+            alert($('#id_mobile').val());
+            $.ajax({
+                method: 'GET',
+                url: "{% url 'code_generation' %}",
+                data:{
+                    'mobile':$('#id_mobile').val()
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.Status == "Success"){
+                        $('#verification-div').show();
+                        $('#verification_sessionid').val(data.Details);
+                    }else if(data.Status == "Error"){
+                        alert(data.Details);
+                    }
+
+                },
+                error: function(response,error){
+                    alert('error');
+                    console.log(response);
+                }
+            })
+        })
+        $('#verification_check').click(function(event){
+            event.preventDefault();
+            code = $('#verification_code').val();
+            $.ajax({
+                method: 'GET',
+                url: "{% url 'code_check' %}",
+                data:{
+                    'code':code,
+                    'session':$('#verification_sessionid').val()
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.Status == "Success"){
+                        if(data.Details== "OTP Matched"){
+                            alert("Otp Matched");
+                            $('#register_button').prop("disabled", false);
+                        }
+                        $('#verification-div').show();
+                        $('#verification_sessionid').val = data.Details;
+                    }else if(data.Status == "Error"){
+                        alert(data.Details);
+                    }
+
+                },
+                error: function(response,error){
+                    alert('error');
+                }
+            })
+        })
+    </script>
+
+
+{% endblock %}

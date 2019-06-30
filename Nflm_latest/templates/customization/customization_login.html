@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NFLM | Custom Design Login</title>
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+
+	
+    {% include 'header.html' %}
+
+    <!-- Cart view section -->
+     <section id="aa-myaccount" style="padding-top:0">
+       <div class="container">
+         <div class="row">
+           <div class="col-md-12">
+            <div class="aa-myaccount-area">
+                <div class="row">
+                  <div class="col-md-8 col-md-offset-2">
+                      <div class="image-sidebar">
+                          <img src="{% static 'img/login_redirect/custom.png' %}">
+                      </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+         </div>
+         <p style="text-align:center"><a href="{% url 'account_login' %}?next={{next}}">Login Here</a> </p>
+       </div>
+     </section>
+     <!-- / Cart view section -->
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+{% endblock %}

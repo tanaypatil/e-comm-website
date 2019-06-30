@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFLM | WishList</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<div class="container">
+   <div class="row">
+      {% include 'myaccount_sidebar.html' %}
+      <div class="col-md-9">
+         <!-- product category -->
+         <section id="aa-product-category">
+            <div class="aa-product-catg-content">
+               <div class="aa-product-catg-body">
+                  <ul class="aa-product-catg list">
+                     <!-- start single product item -->
+                     {% if wishlist.wishlist_items.all|length > 0 %}
+                     {% for wishlist_item in wishlist.wishlist_items.all %}
+                     <li>
+                        <figure>
+                           <a class="aa-product-img" id="aa-product-img{{ wishlist_item.product.id }}" href="#">
+                           <img src="{{ wishlist_item.product.product_images.all.0.image.url }}" alt="{{ wishlist_item.product.product_images.all.0.alt_text }}" style="width:250px">
+                           </a>
+                           <a class="aa-add-card-btn" id="add_to_cart{{ wishlist_item.product.id }}" href="#" onclick="addtoCart('{{ wishlist_item.product.slug }}','{{ wishlist_item.product.id }}')">
+                           <span class="fa fa-shopping-cart">
+                           </span>Add To Cart
+                           </a>
+                           <a class="aa-remove-card-btn" href="{% url 'remove_from_wishlist' id=wishlist_item.id %}">
+                           <span class="fa fa-trash">
+                           </span>Remove from Wishlist
+                           </a>
+                           <figcaption>
+                              <h4 class="aa-product-title">
+                                 <a href="{{ wishlist_item.product.get_absolute_url }}">{{ wishlist_item.product.title }}
+                                 </a>
+                              </h4>
+                              <span class="aa-product-price">{% if wishlist_item.product.sale_price %}Rs{{ wishlist_item.product.sale_price }}
+                              </span>
+                              <span class="aa-product-price">
+                              <del>Rs{{ wishlist_item.product.price }}
+                              </del>{% else %}Rs{{ wishlist_item.product.price }}{% endif %}
+                              </span>
+                              <p class="aa-product-descrip">{{ wishlist_item.product.highlights|linebreaks }}
+                              </p>
+                           </figcaption>
+                        </figure>
+                        <!-- product badge -->
+                        {% if wishlist_item.product.sale_price %}
+                        <span class="aa-badge aa-sale" href="#">SALE!
+                        </span>
+                        {% elif wishlist_item.product.stock == 0 %}
+                        <span class="aa-badge aa-sold-out" href="#">Sold Out!
+                        </span>
+                        {% elif wishlist_item.product.exclusive %}
+                        <span class="aa-badge aa-hot" href="#">EXCLUSIVE!
+                        </span>
+                        {% endif %}
+                     </li>
+                     {% endfor %}
+                     {% else %}
+                     <h1>No items in Wishlist.</h1>
+                     {% endif %}
+                  </ul>
+               </div>
+            </div>
+         </section>
+      </div>
+   </div>
+</div>
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+<script>
+    function addtoCart(product_slug, id){
+        event.preventDefault();
+        var add_to_cart = "#add_to_cart" + id;
+        var add_to_cart_modal = "#add_to_cart_modal" + id;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_cart' slug="default" %}".replace('default', product_slug),
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'qty' : 1
+            },
+            success: function(data){
+                console.log(data);
+                $(add_to_cart).html("<span class='fa fa-check'></span>Added to Cart");
+                $(add_to_cart_modal).html("<span class='fa fa-check'></span>Added to Cart");
+                $('#message_div').show();
+                $('#message').text(data.success);
+            },
+            error: function(response,error){
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+</script>
+{% endblock %}

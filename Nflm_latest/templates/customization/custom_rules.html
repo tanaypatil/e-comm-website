@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="NFLM, nail design, nail art, custom nail art, custom nail design, design nail art, custom design">
+    <meta name="Submit Your own Custom Made Nail Design Art.">
+    <title>NFLM | Custom Design</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+    {% include 'header.html' %}
+
+    <div class="container">
+        <div class="row">
+            {% include 'myaccount_sidebar.html' %}
+            <div class="col-md-9">
+                <div class="account-container">
+                    <h1 class="title_font"><b>Thanks for submitting the Design</b></h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="font-size: larger; font-family: normal"><br><br>
+                                <!--Buy Custom Design--><br>
+                                Delivery Timeline : 7-10 days
+                            </p>
+                            <form method="post" action="{% url 'add_custom_product_to_cart' slug=product.slug %}" class="aa-login-form">
+                                {% csrf_token %}
+                                <input type="submit" class="aa-cart-view-btn" value="Buy" placeholder="Buy"/>
+                            </form>
+                        </div>
+                        <div class="col-md-6" style="padding-top: 38px">
+                            <img class="img-responsive" src="{% static 'img/slider/7.jpg' %}" alt="custom_image">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+{% endblock %}

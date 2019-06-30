@@ -1,0 +1,277 @@
+body {
+    background-color: #f7afaf;
+    overflow: hidden !important;
+}
+
+.triangles {
+  opacity: 0.478;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 7;
+}
+.triangle_r {
+  background-image: url("triangle_r.png");
+  background-size: cover;
+  position: relative;
+  left: 95.0520%;
+  top: 36.2962%;
+  width: 4.7916%;
+  height: 25.092592592%;
+  z-index: 6;
+}
+.triangle_l {
+  background-image: url("triangle_l.png");
+  background-size: cover;
+  position: relative;
+  left: 0%;
+  top: 8.2962%;
+  width: 4.7916%;
+  height: 25.0925%;
+  z-index: 5;
+}
+
+
+
+.photos {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 17;
+}
+.rightb {
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 38.28125%;
+  height: 80.37037%;
+  z-index: 11;
+}
+.leftb {
+  background-color: transparent;
+  position: absolute;
+  left: 11.71875%;
+  top: 10%;
+  width: 38.28125%;
+  height: 80.37037%;
+  z-index: 9;
+}
+
+@font-face {
+    font-family: 'amarillo';
+    src: url(../font/Amarillo.otf);
+}
+
+.vs {
+  position: absolute;
+  left: 46.9895%;
+  top: 46.2222%;
+  width: 5.8125%;
+  height: 15.4962%;
+  z-index: 22;
+}
+.v_s {
+  font-size: 24px;
+  font-family: "amarillo";
+  color: rgb(253, 96, 96);
+  line-height: 1.2;
+  text-align: center;
+  position: absolute;
+  left: 48.306197%;
+  top: 48.9972%;
+  z-index: 21;
+}
+
+.v_b {
+  background-image: url("v_b.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 46.9895%;
+  top: 46.2222%;
+  width: 5.8125%;
+  height: 15.4962%;
+  z-index: 20;
+}
+
+
+
+.ph1{
+    width: 100%;
+    height: 100%;
+    position: relative !important;
+    border-right: 1px dashed white;
+    border-bottom: 3px solid whitesmoke;
+    border-top: 3px solid whitesmoke;
+    border-left: 3px solid whitesmoke;
+  cursor: pointer;
+}
+.ph2{
+    width: 100%;
+    height: 100%;
+    position: relative !important;
+    border-left: 1px dashed white;
+    border-bottom: 3px solid whitesmoke;
+    border-top: 3px solid whitesmoke;
+    border-right: 3px solid whitesmoke;
+  cursor: pointer;
+}
+
+#heart {
+  background-image: url("heart.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  position: absolute;
+  left: 46.4583%;
+  top: 45.5556%;
+  width: 6.9270%;
+  height: 11.0185%;
+  z-index: 25;
+}
+
+
+.text {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 27;
+}
+.thankyou {
+  background-image: url("text.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 29.21875%;
+  top: 17.2222%;
+  width: 41.4583%;
+  height: 63.9814%;
+  z-index: 26;
+}
+
+.auths {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 32;
+}
+
+@font-face {
+    font-family: "photo";
+    src: url('Photographs.ttf');
+}
+
+.name2 {
+  font-size: 32px;
+  font-family: "photo";
+  color: rgb(254, 254, 254);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 87.34765625%;
+  top: 72.496667%;
+  width: 0.6770833%;
+  height: 14.2592%;
+  z-index: 31;
+  letter-spacing: 0.06em;
+  transform: rotate(90deg);
+}
+.name1 {
+  font-size: 32px;
+  font-family: "photo";
+  color: rgb(254, 254, 254);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 12.0178%;
+  top: 12.0337%;
+  width: 0.6770833%;
+  height: 14.2592%;
+  z-index: 30;
+  letter-spacing: 0.06em;
+  transform: rotate(270deg);
+}
+
+@media screen and (max-width: 600px){
+    .photos {
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 17;
+    }
+    .rightb {
+      background-color: transparent;
+      position: absolute;
+      left: 50%;
+      top: 30%;
+      width: 38.28125%;
+      height: 40.37037%;
+      z-index: 11;
+    }
+    .leftb {
+      background-color: transparent;
+      position: absolute;
+      left: 11.71875%;
+      top: 30%;
+      width: 38.28125%;
+      height: 40.37037%;
+      z-index: 9;
+    }
+
+
+    .name2 {
+      font-size: 16px;
+      font-family: "photo";
+      color: rgb(254, 254, 254);
+      line-height: 1.2;
+      text-align: left;
+      position: absolute;
+      left: 87.34765625%;
+      top: 52.496667%;
+      width: 0.6770833%;
+      height: 14.2592%;
+      z-index: 31;
+      letter-spacing: 0.06em;
+      transform: rotate(90deg);
+    }
+    .name1 {
+      font-size: 16px;
+      font-family: "photo";
+      color: rgb(254, 254, 254);
+      line-height: 1.2;
+      text-align: left;
+      position: absolute;
+      left: 12.0178%;
+      top: 32.0337%;
+      width: 0.6770833%;
+      height: 14.2592%;
+      z-index: 30;
+      letter-spacing: 0.06em;
+      transform: rotate(270deg);
+    }
+
+
+    .v_s {
+      font-size: 5px;
+      font-family: "amarillo";
+      color: rgb(253, 96, 96);
+      line-height: 1.2;
+      text-align: center;
+      position: absolute;
+      left: 48.306197%;
+      top: 47.4972%;
+      z-index: 21;
+    }
+
+}
+

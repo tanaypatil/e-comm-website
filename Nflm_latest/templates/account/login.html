@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="NFLM Login, login, signup">
+    <meta name="description" content="Login To get The Latest set Of Nail Arts and To Store them in your Wishlist.">
+    <title>NFLM | LOGIN | Login To get your Personalised set of Nail Arts</title>
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+
+	
+    {% include 'header.html' %}
+
+    <!-- Cart view section -->
+     <section id="aa-myaccount">
+       <div class="container">
+         <div class="row">
+           <div class="col-md-12">
+            <div class="aa-myaccount-area">
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="image-sidebar">
+                          <img src="{% static 'img/slider/s1.jpg' %}">
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="aa-myaccount-login">
+                    <h4>Login</h4>
+                    <form method="post" action="{% url 'account_login' %}" class="aa-login-form">{% csrf_token %}
+                        <div class="row" style="margin-bottom: 15px">
+                              <div class="col-xs-6">
+                                  <div class="btn-group-justified">
+                                    <a href="{% provider_login_url 'facebook' method = 'oauth2' %}?next={{request.get_full_path}}" class="btn btn-facebook"><span class="fa fa-facebook" style="background: none"></span>Sign In</a>
+                                </div>
+                              </div>
+                              <div class="col-xs-6">
+                                  <div class="btn-group-justified">
+                                    <a href="{% provider_login_url 'google' method = 'oauth2' %}?next={{request.get_full_path}}" class="btn btn-google"><span class="fa fa-google-plus" style="background: none"></span>Sign In</a>
+                                </div>
+                              </div>
+                        </div>
+                        {{ form|crispy }}
+                        <button type="submit" class="aa-browse-btn">Login</button>
+                        <p class="aa-lost-password"><a href="{% url 'account_reset_password' %}">Lost your password?</a></p>
+                        <p> <a href="{% url 'account_signup'%}" > REGISTER HERE </a></p>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+     <!-- / Cart view section -->
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+{% endblock %}

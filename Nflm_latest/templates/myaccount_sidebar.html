@@ -1,0 +1,68 @@
+{% url 'user_orders' as user_orders %}
+{% url 'view_wishlist' as view_wishlist %}
+{% url 'view_review' as view_review %}
+{% url 'account_change_password' as account_change_password %}
+{% url 'user_addresses' as user_addresses %}
+{% url 'affiliate_coupon_status' as affiliate_coupon_status %}
+{% url 'affiliate_users' as affiliate_users %}
+{% url 'affiliate_bank_details' as affiliate_bank_details %}
+{% url 'referral_share' as referral_share %}
+{% url 'customization' as customization %}
+{% url 'referral_users' as referral_users %}
+{% url 'invoice_generation' as invoice_generation %}
+
+<div class="col-md-3">
+   <div class="account-section">
+      <h4>Orders</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path user_orders %}active{% endifequal %}"><a href="{% url 'user_orders' %}"> My Orders</a></li>
+      </ul>
+   </div>
+   {% if user.is_staff %}
+   <div class="account-section">
+      <h4>Invoice</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path invoice_generation %}active{% endifequal %}"><a href="{% url 'invoice_generation' %}">Invoice Generation</a></li>
+      </ul>
+   </div>
+   {% endif %}
+   {% if user.affiliate_user.all|length > 0 %}
+   <div class="account-section">
+      <h4>Affiliate Section</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path affiliate_coupon_status %}active{% endifequal %}"><a href="{% url 'affiliate_coupon_status' %}"> Coupon Status</a></li>
+         <li class="{% ifequal request.path affiliate_users %}active{% endifequal %}"><a href="{% url 'affiliate_users' %}">Usage Status</a></li>
+         <li class="{% ifequal request.path affiliate_bank_details %}active{% endifequal %}"><a href="{% url 'affiliate_bank_details' %}">Banking details</a></li>
+      </ul>
+   </div>
+   {% endif %}
+   <div class="account-section">
+      <h4>Refer</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path referral_share %}active{% endifequal %}"><a href="{% url 'referral_share' %}">Refer a Friend</a></li>
+         {% if user.user_referral.all|length > 0 %}
+            <li class="{% ifequal request.path referral_users %}active{% endifequal %}"><a href="{% url 'referral_users' %}">Usage Status</a></li>
+         {% endif %}
+      </ul>
+   </div>
+   <div class="account-section">
+      <h4>Customization</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path customization %}active{% endifequal %}"><a href="{% url 'customization' %}">Buy a Custom Design</a></li>
+      </ul>
+   </div>
+   <div class="account-section">
+      <h4>My Stuff</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path view_wishlist %}active{% endifequal %}"><a href="{% url 'view_wishlist' %}">My Wishlist</a></li>
+         <li class="{% ifequal request.path view_review %}active{% endifequal %}"><a href="{% url 'view_review' %}"> My Reviews & Ratings</a></li>
+      </ul>
+   </div>
+   <div class="account-section">
+      <h4>Settings</h4>
+      <ul class="section-list">
+         <li class="{% ifequal request.path account_change_password %}active{% endifequal %}"><a href="{% url 'account_change_password' %}">Change Password</a></li>
+         <li class="{% ifequal request.path user_addresses %}active{% endifequal %}"><a href="{% url 'user_addresses' %}">Addresses</a></li>
+      </ul>
+   </div>
+</div>

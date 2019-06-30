@@ -1,0 +1,13 @@
+User-Agent: *
+Disallow: /cart/view_cart/
+Disallow: /admin/
+Disallow: /order/user_orders/
+Disallow: /marketing/referral/users/
+Disallow: /order/invoice_generation/
+Disallow: /review/view_review/
+Disallow: /wishlist/view_wishlist/
+Disallow: /accounts/password/change/
+Disallow: /address/
+Disallow: /marketing/referral/share/
+Disallow: /order/order_login/*/*
+Sitemap: https://nflm.co.in/sitemap.xml

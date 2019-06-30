@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NFLM | Refunds And Cancellations</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+{% include 'header.html' %}
+<!-- start contact section -->
+<div class="container">
+ <div class="row">
+   <div class="col-md-12">
+     <div class="aa-area">
+       <div class="aa-top">
+         <h2 class="abt_head">Refunds and Cancellations</h2>
+       </div>
+       <div class="aa-about-desc text-justify">
+            <p>Nflm.co.in hopes that you never have to cancel or return a product. At the same time, we would be there to help you whenever you do so due to certain circumstances. As a first step we are laying out our refunds cancellation  policy to take care of your hassles.<br><br>
+            <strong>ORDER HAS NOT BEEN SHIPPED YET</strong><br>
+            Any order which has not been shipped can be cancelled partially or fully. The amount paid by you would be refunded to you and should
+            reflect in your account in 7-10 days.<br><br>
+            <strong>ORDER WAS DAMAGED WHEN RECEIVED</strong><br>
+            We take utmost care while packaging to ensure that the product reaches you the way you had seen it on our website. However, due to situations beyond our control, the items delivered might get damaged in transit. We would be more than happy to replace or cancel your order under such circumstance. We would request you to let us know of the damage within 48 hours of receipt of order by sending an email on customercare@ nflm.co.in. We would either send you a replacement product or provide you with a coupon of equivalent amount which you can use for the next transaction. The refund would happen only after proper check of the damaged material.<br>
+            <br><strong>INCORRECT ITEMS RECEIVED</strong>
+            <p>We are proud of the robustness of our fulfilment process and the right shipment would reach the right person at the right place. In case you receive items that are different from the ones you ordered, we will ship the right items to you right away. Please send us an email at customercare@ nflm.co.in with the order ID and complaint details. We would respond to it in 48 hours. We would try and reverse pick up the product from your location wherever possible, at other locations we will try and find a mutually agreeable solution. In case, the pick-up cannot be arranged, you can return the item through a third-party courier service and Return fees will be borne by Nflm.co.in.</p>
+            <p>Refund would be processed after the item has been shipped back or picked up from customer location.</p>
+            <p>Any other reasons for cancellation or return would be handled on a case to case basis.</p>
+            <p>Following shall not be eligible for return or replacement.</p>
+            <p>Damages due to misuse of product.<br /> Consumable item which has been used.<br /> Products with tampered or missing serial / item code numbers.<br /> Any product that is returned without all original packaging and accessories, items originally included with the product(s)delivered.<br /> Refunds are made as follows: If the payment is made using a credit/debit card (or any form of net banking) then the amount is credited back to the same account from which the payment was made or the refund is made in the form of coupon codes.</p>
+            <p><strong>Cancellation of order</strong></p>
+            <p>Nflm.co.in reserves the right to cancel any order without any explanation for doing so, under situation where Nflm.co.in is not able to meet the requirement of the order placed or order so placed/cancelled does not comply with the Nflm.co.in policy or for any other reason. However, Nflm.co.in will ensure that any communication of cancellation of an order, so cancelled, is intimated within appropriate time to the concerned person and any applicable refund will be made in reasonable time.</p>
+            <p><strong>Applicable Law</strong></p>
+            <p>This Agreement shall be governed by and interpreted and construed in accordance with the laws of India. The place of jurisdiction shall be in Nagpur.</p>
+            <p>Jurisdictional Issues/Sale in India Only</p>
+            <p>Unless otherwise specified, the material on Nflm.co.in is presented solely for the purpose of sale in India. Nflm.co.in makes no representation that materials in Nflm.co.in are appropriate or available for use in other locations/Countries other than India. Those who choose to access this site from other locations/Countries other than India do so on their own initiative and Nflm.co.in is not responsible for supply of goods/refund for the goods ordered from other locations/Countries other than India, compliance with local laws, if and to the extent local laws are applicable.</p>
+            <p><strong>Trademark, Copyright and Restriction</strong></p>
+            <p>This site is controlled and operated by Nflm.co.in. All material on this site, including images, illustrations, audio clips, and video clips, are protected by copyrights, trademarks, and other intellectual property rights that are owned and controlled by us or by other parties that have licensed their material to us. Material on Nflm.co.in web site owned, operated, licensed or controlled by us is solely for your personal, non-commercial use. You must not copy, reproduce, republish, upload, post, transmit or distribute such material in any way, including by e-mail or other electronic means and whether directly or indirectly and you must not assist any other person to do so. Without the prior written consent of the owner, modification of the materials, use of the materials on any other web site or networked computer environment or use of the materials for any purpose other than personal, non-commercial use is a violation of the copyrights, trademarks and other proprietary rights, and is prohibited. Any use for which you receive any remuneration, whether in money or otherwise, is a commercial use for the purposes of this clause.</p>
+            <p><strong>Your Account</strong></p>
+            <p>You agree that any use on the site is at your own risk and Nflm.co.in is not responsible for it. If you are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your account or password. Products sold on Nflm.co.in are not for people below aged 18, however any products available for children below age 18, can be bought by adults.</p>
+            <p><strong>Copyright complaint</strong></p>
+            <p>We at Nflm.co.in respect the intellectual property of others. In case you feel that your work has been copied in a way that constitutes copyright infringement you can write to us at legal@ Nflm.co.in.</p>
+            <p><strong>Risk of loss</strong></p>
+            <p>All items purchased from Nflm.co.in are made pursuant to a shipment contract. This means that the risk of loss and title for such items pass to you upon our delivery to the carrier.</p>
+            <p><strong>Our Contact</strong></p>
+            <p>Please send any questions or comments (including all inquiries unrelated to copyright infringement) regarding this Site to customercare@ nflm.co.in</p>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

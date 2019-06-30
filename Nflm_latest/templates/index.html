@@ -1,0 +1,792 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Nail Art, Nail Design, Nail Art Store, Nail Design Store, Nail Art Store India, Exclusive
+ Nail Design Store, Nail Design India, NFLM, Nertia, Nertia Nail Design Store,Online Nail Design Shopping, Nail Art Shopping,
+ Online Shopping, Nertia Nail Art Store, Art Store, Custom nail Art, Custom Nail Design, Design Your Nail Art, Get Nail Art, Nail Stickers,
+ Online Nail Design, Online Nail Art, Buy Nail Art Online, Nail Art on Sale, Nail Design Sale, Beautiful Nail Design,
+ Attractive Nail Design, Beautiful Nail Art, Attractive Nail Art, Nail Design for All, Nail Design 2016, Nail Design Art,
+ Beautiful Nails, Nail Store, Nail Polish Strips, Nail Strips, Nail Art Revolution, Trendy Nail Art, Trendy Nail Design
+ Awesome Nail Art, Awesome nail Design, Popular Nail Art, Popular Nail Design, Wide Range of Nail Designs, Wide Range of Nail Art,
+bridal nail art, glitter nail art, french manicure, french manicure nail art, pedicure, manicure, wedding nail art, matt finish nail art,
+stickynail art, nsilcrestivity, sticky nail art, nail creativity, create nail art, artificial nails, long nails for girls,
+artificial nails for sticking, temporary nails, colourful nails, instant long nails, instant long colourful nails for girls,
+U shaped artificial nails, straight nails for sticking, square nail art, natural artificial nails, nails for bridal makeup, nail polish,
+nflm nertia">
+<meta name="description" content="Buy Trendy Nail Art Stickers & Nail Art Designs from NFML. A revolution in Nail
+Art. Awesome nail polish strips at NFLM – Exclusive Online Store.">
+<title>NFLM Nertia | Nail Art Design | Exclusive Nail Art store in India</title>
+<!-- Material Design Icons 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type='text/css'>-->
+<!-- Font Awesome-->
+<link rel="stylesheet" type='text/css' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Font awesome
+<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type='text/css'>-->
+<!-- Bootstrap -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+<!-- Theme color -->
+<link id="switcher" href="{% static 'css/theme.min.css' %}" rel="stylesheet" type='text/css'>
+<!-- Top Slider CSS -->
+<link rel="stylesheet" href="{% static 'css/vegas.min.css' %}" type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.min.css' %}" type='text/css'>
+<!-- Main style sheet -->
+<link href="{% static 'css/style.min.css' %}" rel="stylesheet" type='text/css'>
+<link href="{% static 'css/creative.css' %}" rel="stylesheet" type='text/css'><!--custom fonts-->
+<link href="{% static 'css/fonts.min.css' %}" rel="stylesheet" type='text/css'>
+<style>
+    .normal_font{
+        font-family: "normal";
+    }
+
+    .brand_logo{
+        width:122px;
+        height:42px;
+    }
+</style>
+
+<!-- Google Tag Manager -->
+<script defer>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MHVMZ5M');</script>
+<!-- End Google Tag Manager -->
+
+<script defer>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47070425-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+{% endblock %}
+{% block content  %}
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHVMZ5M"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll logo" href="{% url 'home' %}"><img class="brand_logo" src="{% static 'img/NFLM_Nertia_logo.png' %}" alt="nflm-logo"/> </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="normal_font" href="{% url 'home' %}"><i class="fa fa-home"></i>Home</a></li>
+                <li><a class="normal_font" href="{% url 'product_list' page=1 %}"><i class="fa fa-shopping-bag"></i> Shop</a></li>
+                <li><a class="normal_font" href="{% url 'tag_list' page=1 %}"><i class="fa fa-archive"></i> Collection</a></li>
+                <li><a class="normal_font" href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a> </li>
+                {% if not user.is_authenticated %}
+                <li><a class="normal_font" href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-user"></i> Login/Sign Up</a></li>
+                {% else %}
+                <li><a class="normal_font" href="{% url 'user_orders' %}"><i class="fa fa-user"></i> My Account</a></li>
+                <li><a class="normal_font" href="{% url 'account_logout' %}"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<header id="home-page-background" >
+    <h1 class="hidden">Nail Art</h1>
+    <div class="header-content">
+        <div class="header-content-inner">
+            <div class="embed-responsive embed-responsive-16by9 col-xs-12 col-md-12 text-center">
+                <!--<iframe class="embed-responsive-item" id="player" src="https://www.youtube.com/embed/qy2j84Fu8nA?rel=0&showinfo=0&autoplay=1&enablejsapi=1" frameborder="0" allowfullscreen></iframe>-->
+               <div class="seq-title">
+                     <!--<span data-seq>Revolution in Nail Fashion</span>-->
+                     <h2 id="nail_text" class="head_text" style="color: #FFFFFF; text-shadow: 1px 1px 3px hsla(0,0%,0%,1.00);"><br>Nail Art Collection that suits your attire</h2>
+                     <!--<p data-seq>Awesome, convinient and non toxic nail art </p>-->
+                     <a data-seq href="/product/tag/page1/ " class="aa-shop-now-btn aa-secondary-btn">Explore</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% if messages %}
+<ul class="messages">
+{% for message in messages %}
+    <li>
+    <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+      <a class="close" data-dismiss="alert">×</a>
+            {% if message.tags %} <strong>{{ message.tags }}</strong>! {% endif %}<p>{{ message }}</p>
+    </div>
+    </li>
+</ul>
+{% endfor %}
+{% else %}
+<div class="alert alert-success messages" id="message_div" style="display: none">
+  <a class="close" data-dismiss="alert">×</a>
+      <span id="message"></span>
+</div>
+{% endif %}
+
+<!-- SCROLL TOP BUTTON -->
+<a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+<!-- END SCROLL TOP BUTTON -->
+
+<!-- popular section -->
+<section id="aa-popular-category" style="z-index: 1;position: relative">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="row">
+               <div class="aa-popular-category-area">
+                  <!-- start prduct navigation -->
+                  <ul class="nav nav-tabs aa-products-tab">
+                     <li class="active"><a href="#occasional" data-toggle="tab">Most Popular</a></li>
+                     <li><a href="#popular" data-toggle="tab">Exclusive</a></li>
+                     <li><a href="#featured" data-toggle="tab">New</a></li>
+                     <li><a href="#latest" data-toggle="tab">Sale</a></li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                     <!--occasional starts-->
+                     <div class="tab-pane fade in active" id="occasional">
+                        <ul class="aa-product-catg aa-popular-slider">
+                           <!-- start single product item -->
+                           {% if occasional_list|length > 0 %}
+                           {% for product in occasional_list %}
+                           <li>
+                              <figure>
+                                 <a class="aa-product-img" id="aa-product-img{{ product.id }}" href="{{ product.get_absolute_url }}">
+                                 <img class="img-rounded img-thumbnail img-responsive" src="{{ product.product_images.all.0.image.url }}" alt="{{ product.product_images.all.0.alt_text }}">
+                                 </a>
+                                 {% if product.stock == 0 %}
+                                 <a class="aa-add-card-btn" href="#" data-toggle="modal" data-target="#notification-modal{{ product.id }}">
+                                 <span class="fa fa-bell-o">
+                                 </span>Notify Me
+                                 </a>
+                                 {% else %}
+                                 <a class="aa-add-card-btn" id="add_to_cart{{ product.id }}" href="#" onclick="addtoCart(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-shopping-cart">
+                                 </span><div class="add_to_cart">Add To Cart</div>
+                                 </a>
+                                 {% endif %}
+                                 <figcaption>
+                                    <h4 class="aa-product-title">
+                                       <a href="{{ product.get_absolute_url }}">{{ product.title }}
+                                       </a>
+                                    </h4>
+                                    <span class="aa-product-price">{% if product.sale_price %}Rs{{ product.sale_price }}
+                                    </span>
+                                    <span class="aa-product-price">
+                                    <del>Rs{{ product.price }}
+                                    </del>{% else %}Rs{{ product.price }}{% endif %}
+                                    </span>
+                                 </figcaption>
+                              </figure>
+                              <div class="aa-product-hvr-content">
+                                 {% if user.is_authenticated %}
+                                 <a href="#" data-toggle="tooltip" data-placement="top" id="add_to_wishlist{{ product.id }}" title="Add to Wishlist" onclick="addtoWishlist(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% else %}
+                                 <a href="#" data-toggle="modal" data-target="#login-modal" title="Add to Wishlist">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% endif %}
+                                 <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal{{ product.id }}">
+                                 <span class="fa fa-search">
+                                 </span>
+                                 </a>
+                              </div>
+                              <!-- product badge -->
+                              {% if product.sale_price %}
+                              <span class="aa-badge aa-sale" href="#">SALE!
+                              </span>
+                              {% elif product.stock == 0 %}
+                              <span class="aa-badge aa-sold-out" href="#">Sold Out!
+                              </span>
+                              {% elif product.exclusive %}
+                              <span class="aa-badge aa-hot" href="#">EXCLUSIVE!
+                              </span>
+                              {% endif %}
+                           </li>
+                           {% endfor %}
+                           {% else %}
+                               <p>No Exclusive Items as of Now.</p>
+                           {% endif %}
+                        </ul>
+                        <a class="aa-browse-btn" href="{% url 'product_list' page=1 %}?filter=occasional">Browse Popular Product <span class="fa fa-long-arrow-right"></span></a>
+                     </div>
+                     <!-- occastional ends -->
+                     <!-- Start  popular category -->
+                     <!-- / Exclusive product category Starts -->
+                     <div class="tab-pane fade" id="popular">
+                        <ul class="aa-product-catg aa-popular-slider">
+                           <!-- start single product item -->
+                           {% if exclusive_list|length > 0 %}
+                           {% for product in exclusive_list %}
+                           <li>
+                              <figure>
+                                 <a class="aa-product-img" id="aa-product-img{{ product.id }}" href="{{ product.get_absolute_url }}">
+                                 <img class="img-rounded img-thumbnail img-responsive" src="{{ product.product_images.all.0.image.url }}" alt="{{ product.product_images.all.0.alt_text }}">
+                                 </a>
+                                 {% if product.stock == 0 %}
+                                 <a class="aa-add-card-btn" href="#" data-toggle="modal" data-target="#notification-modal{{ product.id }}">
+                                 <span class="fa fa-bell-o">
+                                 </span>Notify Me
+                                 </a>
+                                 {% else %}
+                                 <a class="aa-add-card-btn" id="add_to_cart{{ product.id }}" href="#" onclick="addtoCart(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-shopping-cart">
+                                 </span><div class="add_to_cart">Add To Cart</div>
+                                 </a>
+                                 {% endif %}
+                                 <figcaption>
+                                    <h4 class="aa-product-title">
+                                       <a href="{{ product.get_absolute_url }}">{{ product.title }}
+                                       </a>
+                                    </h4>
+                                    <span class="aa-product-price">{% if product.sale_price %}Rs{{ product.sale_price }}
+                                    </span>
+                                    <span class="aa-product-price">
+                                    <del>Rs{{ product.price }}
+                                    </del>{% else %}Rs{{ product.price }}{% endif %}
+                                    </span>
+                                    </p>
+                                 </figcaption>
+                              </figure>
+                              <div class="aa-product-hvr-content">
+                                 {% if user.is_authenticated %}
+                                 <a href="#" data-toggle="tooltip" data-placement="top" id="add_to_wishlist{{ product.id }}" title="Add to Wishlist" onclick="addtoWishlist(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% else %}
+                                 <a href="#" data-toggle="modal" data-target="#login-modal" title="Add to Wishlist">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% endif %}
+                                 <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal{{ product.id }}">
+                                 <span class="fa fa-search">
+                                 </span>
+                                 </a>
+                              </div>
+                           </li>
+                           {% endfor %}
+                           {% else %}
+                               <p>No Exclusive Items as of Now.</p>
+                           {% endif %}
+                        </ul>
+                        <a class="aa-browse-btn" href="{% url 'product_list' page=1 %}?filter=excl">Browse Exclusive Products <span class="fa fa-long-arrow-right"></span></a>
+                     </div>
+                     <!-- / Exclusive product category Ends -->
+                     <!-- Start New product category -->
+                     <div class="tab-pane fade" id="featured">
+                        <ul class="aa-product-catg aa-featured-slider">
+                           <!-- start single product item -->
+                           {% if new_list|length > 0 %}
+                           {% for product in new_list %}
+                           <li>
+                              <figure>
+                                 <a class="aa-product-img" id="aa-product-img{{ product.id }}" href="{{ product.get_absolute_url }}">
+                                 <img class="img-rounded img-thumbnail img-responsive" src="{{ product.product_images.all.0.image.url }}" alt="{{ product.product_images.all.0.alt_text }}">
+                                 </a>
+                                 {% if product.stock == 0 %}
+                                 <a class="aa-add-card-btn" href="#" data-toggle="modal" data-target="#notification-modal{{ product.id }}">
+                                 <span class="fa fa-bell-o">
+                                 </span>Notify Me
+                                 </a>
+                                 {% else %}
+                                 <a class="aa-add-card-btn" id="add_to_cart{{ product.id }}" href="#" onclick="addtoCart(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-shopping-cart">
+                                 </span><div class="add_to_cart">Add To Cart</div>
+                                 </a>
+                                 {% endif %}
+                                 <figcaption>
+                                    <h4 class="aa-product-title">
+                                       <a href="{{ product.get_absolute_url }}">{{ product.title }}
+                                       </a>
+                                    </h4>
+                                    <span class="aa-product-price">{% if product.sale_price %}Rs{{ product.sale_price }}
+                                    </span>
+                                    <span class="aa-product-price">
+                                    <del>Rs{{ product.price }}
+                                    </del>{% else %}Rs{{ product.price }}{% endif %}
+                                    </span>
+                                 </figcaption>
+                              </figure>
+                              <div class="aa-product-hvr-content">
+                                 {% if user.is_authenticated %}
+                                 <a href="#" data-toggle="tooltip" data-placement="top" id="add_to_wishlist{{ product.id }}" title="Add to Wishlist" onclick="addtoWishlist(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% else %}
+                                 <a href="#" data-toggle="modal" data-target="#login-modal" title="Add to Wishlist">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% endif %}
+                                 <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal{{ product.id }}">
+                                 <span class="fa fa-search">
+                                 </span>
+                                 </a>
+                              </div>
+                           </li>
+                           {% endfor %}
+                           {% else %}
+                               <p>No New Arrivals</p>
+                           {% endif %}
+                        </ul>
+                        <a class="aa-browse-btn" href="{% url 'product_list' page=1 %}?filter=new">Browse all New Product <span class="fa fa-long-arrow-right"></span></a>
+                     </div>
+                     <!-- / New product category Ends-->
+                     <!-- Start Sale product category -->
+                     <div class="tab-pane fade" id="latest">
+                        <ul class="aa-product-catg aa-latest-slider">
+                           <!-- Sale -->
+                           {% if sale_list|length > 0 %}
+                           {% for product in sale_list %}
+                           <li>
+                              <figure>
+                                 <a class="aa-product-img" id="aa-product-img{{ product.id }}" href="{{ product.get_absolute_url }}">
+                                 <img class="img-rounded img-thumbnail img-responsive" src="{{ product.product_images.all.0.image.url }}" alt="{{ product.product_images.all.0.alt_text }}">
+                                 </a>
+                                 {% if product.stock == 0 %}
+                                 <a class="aa-add-card-btn" href="#" data-toggle="modal" data-target="#notification-modal{{ product.id }}">
+                                 <span class="fa fa-bell-o">
+                                 </span>Notify Me
+                                 </a>
+                                 {% else %}
+                                 <a class="aa-add-card-btn" id="add_to_cart{{ product.id }}" href="#" onclick="addtoCart(event, '{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-shopping-cart">
+                                 </span><div class="add_to_cart">Add To Cart</div>
+                                 </a>
+                                 {% endif %}
+                                 <figcaption>
+                                    <h4 class="aa-product-title">
+                                       <a href="{{ product.get_absolute_url }}">{{ product.title }}
+                                       </a>
+                                    </h4>
+                                    <span class="aa-product-price">{% if product.sale_price %}Rs{{ product.sale_price }}
+                                    </span>
+                                    <span class="aa-product-price">
+                                    <del>Rs{{ product.price }}
+                                    </del>{% else %}Rs{{ product.price }}{% endif %}
+                                    </span>
+                                 </figcaption>
+                              </figure>
+                              <div class="aa-product-hvr-content">
+                                 {% if user.is_authenticated %}
+                                 <a href="#" data-toggle="tooltip" data-placement="top" id="add_to_wishlist{{ product.id }}" title="Add to Wishlist" onclick="addtoWishlist(event,'{{ product.slug }}','{{ product.id }}')">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% else %}
+                                 <a href="#" data-toggle="modal" data-target="#login-modal" title="Add to Wishlist">
+                                 <span class="fa fa-heart-o">
+                                 </span>
+                                 </a>
+                                 {% endif %}
+                                 <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal{{ product.id }}">
+                                 <span class="fa fa-search">
+                                 </span>
+                                 </a>
+                              </div>
+                           </li>
+                           {% endfor %}
+                           {% else %}
+                               <p>No Sale Items as of Now.</p>
+                           {% endif %}
+                        </ul>
+                        <a class="aa-browse-btn" href="{% url 'product_list' page=1 %}?filter=sale">Browse all Sale Product <span class="fa fa-long-arrow-right"></span></a>
+                     </div>
+                     <!-- / end Sale product category -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- / popular section ends -->
+
+<!--trial: Matter for Features & Benifit-->
+<section id="services" style="z-index: 0; position: relative">
+   <div class="container">
+        <!--why love-->
+       <div class="row why_love">
+
+           <div class="col-md-6 col-sm-10 col-md-push-3 text-center">
+               <h3 class="feature_header">Why you will love it ?</h3><br>
+               <img src="{% static 'img/4.png' %}" class=" hidden-xs" alt="heart">
+           </div>
+
+           <div class="col-md-3 col-md-pull-6 feature_box text-center">
+               <h5 class="feature_head">--Awesomeness--</h5><br>
+               <p class="feature_text">NERTIA Nail wear inject style and awesomeness into your daily life. NFLM has the right style and gift for contemporary females to express style statement through the nail art. Giving a new form of expression through nails.<br><br></p>
+           </div>
+
+           <div class="col-md-3 feature_box text-center">
+               <h5 class="feature_head">--Convenience--</h5><br>
+               <p class="feature_text">You paint! You blow! You wait! You put your hand in purse and ruining the freshly painted nails. What can we do about it?Luckily, NERTIA Nail wear is a convenient way of using nail art .It take only 7-10 minutes to apply over all the 10 finger nail and no drying time.</p>
+           </div>
+
+           <div class="col-md-3 col-md-offset-3 feature_box text-center">
+               <h5 class="feature_head">--Safety--</h5><br>
+               <p class="feature_text">Three free and eco friendly, NERTIA designer Nail wear is non toxic and does not contain carcinogenic chemicals like DBP, formaldehyde, Toluene.  Knowing that our product is helping the Earth and our nails is well worth it.<br><br></p>
+           </div>
+
+           <div class="col-md-3 feature_box text-center">
+               <h5 class="feature_head">--Performance--</h5><br>
+               <p class="feature_text">Do you love to do your own nails but hate the smudges? So here  NFLM provides dry nail polish, so  there is no chance of smear or smudges and it  is waterproof and last up to 7 days with a top coat applied that  gives you a beautiful nails to flaunt without fading colours.</p>
+           </div>
+
+       </div>
+
+
+
+      <!--Steps To Apply-->
+      <div class=" steps_to_apply">
+      <div class="row">
+         <div class="col-md-12 text-center">
+            <h2 class="section-heading cway">Convenient Way To Apply</h2>
+         </div>
+      </div>
+      <div class="row text-center">
+          <div class="col-md-10 col-md-offset-1">
+              <img class="img-responsive img-thumbnail" src="{% static 'img/slider/howto.jpg' %}" alt="how to wear">
+          </div>
+         <!--<div class="col-md-3">
+            <img src="" class="home-steps img-responsive img-thumbnail">
+            <h4 class="cway_step_head">Choose & Peel the Nailwear</h4>
+            <p class="feature_text"><strong>Select</strong> designer Nailwear as per the size of nail & peel it from the pack.</p>
+         </div>
+         <div class="col-md-3">
+            <img src="" class="home-steps img-responsive img-thumbnail">
+            <h4 class="cway_step_head">Apply on the Nails</h4>
+            <p class="feature_text"><strong>Apply designer Nailwear</strong> on the nail along the cuticle edge.</p>
+         </div>
+         <div class="col-md-3">
+            <img src="" class="home-steps img-responsive img-thumbnail">
+            <h4 class="cway_step_head">Buff off excess </h4>
+            <p class="feature_text"><strong>Buff off </strong>the excess part of nail art sticker with Buffer & cuticle stick.</p>
+         </div>
+         <div class="col-md-3">
+            <img src="" class="home-steps img-responsive img-thumbnail">
+            <h4 class="cway_step_head">For long last..use clear coat </h4>
+            <p class="feature_text"><strong>For long lasting </strong>of nailwear, use good quality top coat.</p>
+         </div>-->
+      </div>
+      </div>
+
+    <!--Testimonials -->
+
+      <div class="row" style="margin-top: 10px">
+         <div class="col-md-12 text-center">
+            <!--<h2 class="section-heading text-center testi_head">TESTIMONIALS</h2>-->
+             <br><p class="testi_subhead">See what our Consumers have to say . . .</p>
+         </div>
+      </div>
+      <div class="row text-center">
+         <div class="col-md-4">
+            <img src="{% static 'img/slider/test_2.jpg' %}" class="home-benefits img-thumbnail" alt="girl1">  <!--change img for benefit-1-->
+            <h4 class="testi_text testi_name">Aditi Shukla- Student</h4>
+            <p class="testi_text">Awesome design...perfect with my attire....</p>
+         </div>
+         <div class="col-md-4">
+             <img src="{% static 'img/slider/test_4.jpg' %}" class="home-benefits img-thumbnail" alt="girl2">  <!--change img for benefit-1-->
+            <h4 class="testi_text testi_name">Aditi Khanorkar-Student</h4>
+            <p class="testi_text"><strong>Fabulous!!</strong> designs & collection.</p>
+         </div>
+         <div class="col-md-4">
+             <img src="{% static 'img/slider/test_6.jpg' %}" class="home-benefits img-thumbnail" alt="girl3">  <!--change img for benefit-1-->
+            <h4 class="testi_text testi_name">Mrunal Rangari-Student</h4>
+            <p class="testi_text">The formal set of nail art is brilliant.</p>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% include 'footer.html' %}
+{% for product in complete_list %}
+ <!-- quick view modal -->
+ <div class="modal fade quick-view-modal" id="quick-view-modal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-body">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+             </button>
+             <div class="row">
+                <!-- Modal view slider -->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                   <div class="aa-product-view-slider">
+                      <div class="product-detail__gallery">
+                         <div class="product-slider-wrapper">
+                            <div class="product-slider">
+                               {% for img in product.product_images.all %}
+                               <div class="item">
+                                  <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-highres="{{ img.image.url }}">
+                               </div>
+                               {% endfor %}
+                            </div>
+                            <div class="product-slider-thumb-row">
+                               <div class="product-slider-thumb">
+                                  {% for img in product.product_images.all %}
+                                  <div class="item">
+                                     <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                                  </div>
+                                  {% endfor %}
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <!-- Modal view content -->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                   <div class="aa-product-view-content">
+                      <h4>{{ product.title }}
+                      </h4>
+                      <div class="aa-price-block">
+                          {% if product.sale_price %}
+                          <span class="aa-product-view-price">Rs {{ product.price }}</span>
+                          <span class="aa-product-sale-price" style="font-size: 18px">Rs {{ product.sale_price }}</span>
+                          {% else %}
+                          <span class="aa-product-view-price">Rs {{ product.price }}</span>
+                          {% endif %}
+
+                         </span>
+                         <p class="aa-product-avilability">Avilability: {% if product.stock > 0 %}
+                            <span>In stock
+                            </span>{% else %}
+                            <span style="color: red">Out of Stock
+                            </span>{% endif %}
+                         </p>
+                      </div>
+                      <div class="aa-prod-view-bottom">
+                         <a href="#" class="aa-add-to-cart-btn" id="add_to_cart_modal{{ product.id }}" onclick="addtoCart(event,'{{ product.slug }}','{{ product.id }}')">
+                         <span class="fa fa-shopping-cart">
+                         </span>Add To Cart
+                         </a>
+                         <a href="{{ product.get_absolute_url }}" class="aa-add-to-cart-btn">View Details
+                         </a>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+ </div>
+ {% endfor %}
+ <!-- / quick view modal -->
+ <!-- Notification Modal -->
+{% for product in complete_list %}
+{% if product.stock == 0 %}
+<div class="modal fade" id="notification-modal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4>We will notify you as soon as it gets back in stock.</h4>
+      <form class="aa-login-form">
+        <label>Email address<span>*</span></label>
+        <input type="email" id="notification-email{{ product.id }}" placeholder="email" name="email" required/>
+        <label>Mobile<span>*</span></label>
+        <input type="number" id="notification-mobile{{ product.id }}" placeholder="Password" name="mobile"/>
+        <input type="hidden" name="id" value="{{ product.id }}"/>
+        <button class="aa-browse-btn" type="submit" onclick="notification_submit('{{ product.id }}');" style="float: none">Submit</button>
+      </form>
+      <span id="notification-modal-message"></span>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+{% endif %}
+{% endfor %}
+<!-- SCRIPTS -->
+
+<!-- jQuery library-->
+<script type="text/javascript" src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script  type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+<!-- Product Slider -->
+<script async type="text/javascript" src="{% static 'js/jquery.owl.carousel.min.js' %}"></script>
+<!-- To Slider JS -->
+<script type="text/javascript" src="{% static 'js/vegas.min.js' %}"></script>
+    <script  type="text/javascript">
+    $("#home-page-background").vegas({
+       slides: [
+           { src: "{% static 'img/slider/s1.gif' %}" },
+       ]
+    });
+</script>
+<!-- Custom js
+<script async type="text/javascript" src="{% static 'js/script.min.js' %}"></script>-->
+<script async type="text/javascript" src="{% static 'js/custom.min.js' %}"></script>
+<script defer>
+
+   function addtoCart(e,product_slug, id){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        var add_to_cart = "#add_to_cart" + id;
+        var add_to_cart_modal = "#add_to_cart_modal" + id;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_cart' slug="default" %}".replace('default', product_slug),
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'qty' : 1
+            },
+            success: function(data){
+               $('#ajax_loading_animation').hide();
+                console.log(data);
+                $(add_to_cart).html("<span class='fa fa-check'></span>Added to Cart");
+                $(add_to_cart_modal).html("<span class='fa fa-check'></span>Added to Cart");
+                if(data.success){
+                    $('#message_div').removeClass("alert-error");
+                    $('#message_div').addClass("alert-success");
+                }else{
+                    $('#message_div').removeClass("alert-success");
+                    $('#message_div').addClass("alert-error");
+                }
+                $('#message_div').show();
+                $('#message').text(data.message);
+                UpdateCartItemCount();
+            },
+            error: function(response,error){
+               $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    function addtoWishlist(e,product_slug, id){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        var add_to_wishlist = "#add_to_wishlist" + id;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_wishlist' slug="default" %}".replace('default', product_slug),
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data){
+               $('#ajax_loading_animation').hide();
+                console.log(data);
+                $(add_to_wishlist).html("<span class='fa fa-heart'></span>");
+                $(add_to_wishlist).tooltip('hide');
+                $(add_to_wishlist).attr('data-original-title', 'Added to Wishlist');
+                $(add_to_wishlist).tooltip('show');
+                $('#message_div').show();
+                $('#message').text(data.success);
+            },
+            error: function(response,error){
+               $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    function notification_submit(id){
+        event.preventDefault();
+        $('#ajax_loading_animation').show();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'stock_notification' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'id':id,
+                'email':$('#notification-email' + id).val(),
+                'mobile':$('#notification-mobile' + id).val()
+            },
+            success: function(data){
+               $('#ajax_loading_animation').hide();
+                console.log(data);
+                if(data.success){
+                    $('#notification-modal-message').addClass("success");
+                    $('#notification-modal-message').removeClass("error");
+                    $('#notification-modal-message').text(data.message)
+                }else{
+                    $('#notification-modal-message').addClass("error");
+                    $('#notification-modal-message').removeClass("success");
+                    $('#notification-modal-message').text(data.message)
+                }
+            },
+            error: function(response,error){
+               $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+   function UpdateCartItemCount(){
+       var badge = $('#cart-count-badge');
+       var cart_total = $('#cart-total');
+   
+       $.ajax({
+           type: "GET",
+           url: "{% url 'cart_details' %}",
+           success: function(data){
+               console.log(data);
+               badge.text(data.count);
+               cart_total.text(data.cart_total + '/-');
+           },
+           error: function(response,error){
+               alert('error')
+               console.log(response),
+               console.log(error)
+           }
+       })
+   }
+   $(document).ready(function(){
+       UpdateCartItemCount();
+   })
+</script>
+
+
+<script defer type="text/javascript">
+    $(document).ready(function(){
+   var scroll_start = 0;
+   var startchange = $('#nail_text');
+   var offset = startchange.offset();
+    if (startchange.length){
+   $(document).scroll(function() {
+      scroll_start = $(this).scrollTop();
+      if(scroll_start > offset.top) {
+          $(".navbar-default").css('background-color', 'rgba(255,255,255,0.8)');
+          $(".navbar-default").css('box-shadow', '0px 0px 0px 1px hsla(168,86%,68%,0.3)');
+       } else {
+          $('.navbar-default').css('background-color', 'transparent');
+          $(".navbar-default").css('box-shadow', 'none');
+       }
+   });
+    }
+});
+</script>
+{% endblock %}
+

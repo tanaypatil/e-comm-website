@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Innovative cosmetics, nail art India, trendy fashion">
+    <meta name="description" content="Innovative cosmetic products for trendy fashion in nail art in India by NFLM, a startup incubated at Visvesvaraya National Institute of Technology, Nagpur">
+    <title>Innovative Cosmetics | Nail art India | Trendy Fashion</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+{% include 'header.html' %}
+<!-- start contact section -->
+<div class="container">
+ <div class="row">
+   <div class="col-md-12">
+     <div class="aa-area">
+       <div class="aa-top">
+         <h2 class="abt_head title_font">About Us</h2>
+       </div>
+       <div class="aa-about-desc text-justify">
+           <p>NFLM is at the intersection of Technology, Cosmetics and Fashion. We are trying to break the stereotype prevailing in the existing complex-product market by innovating and providing simpler, convenient, affordable products that are non-toxic in usage and that would work for the contemporary women with specific beauty needs and tastes.<br><br>
+           Driven by passion, creative freedom and entrepreneurial spirit, our team has opened an entirely new category in the cosmetic & fashion world by introducing “NERTIA NAILWEAR”. An innovative cosmetic product for nail art enthusiasts.<br><br>
+           We are poised to redefine nail fashion.<br><br>
+           NFLM is also a place to hang out, to get the scoop on the latest development in trendy fashion world.</p>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+{% include 'footer.html' %}
+{% include 'footer_script.html' %}
+{% endblock %}

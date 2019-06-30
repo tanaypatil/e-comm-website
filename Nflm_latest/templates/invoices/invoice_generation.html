@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NFLM | Invoice Generation</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+    {% include 'header.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'myaccount_sidebar.html' %}
+            <div class="col-md-9">
+                <div class="account-container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="get" action="{% url 'invoice_pdf' %}" class="aa-login-form">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Invoice Number</label>
+                                <input type="txet" name="order_id" class="form-control" id="exampleInputEmail1" placeholder="Order ID">
+                              </div>
+                              <button type="submit" class="aa-browse-btn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+{% endblock %}

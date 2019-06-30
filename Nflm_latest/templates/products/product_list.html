@@ -1,0 +1,418 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Nail Art Designs, Nail Art Products, Nail Design Products">
+<meta name="description" content="">
+<title>NFLM | Product Listing | Nail Art Stickers | Most Popular nail art designs - NFLM.co.in</title>
+{% include 'head_css.html' %}
+{% endblock %}
+{% block content %}
+<!-- !Important notice -->
+<!-- Only for product page body tag have to added .productPage class -->
+<body class="productPage">
+   {% include 'header.html' %}
+   <!-- catg header banner section -->
+   <section id="aa-catg-head-banner" style="height:120px;">
+      <img src="{% static 'img/collection.jpg' %}" alt="Nail Art Collection">
+      <div class="aa-catg-head-banner-area" style="height:120px;">
+         <div class="container">
+            <div class="aa-catg-head-banner-content">
+               <h2 class="list_page_head">Shop
+               </h2>
+               <ol class="breadcrumb">
+                  <li>
+                     <a href="{% url 'home' %}">Home
+                     </a>
+                  </li>
+                  <li class="active">Shop
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- / catg header banner section -->
+   <!-- product category -->
+   <section id="aa-product-category">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="aa-product-catg-content">
+                  <div class="aa-product-catg-head" style="background-color: hsla(168,86%,68%,0.3); border: 2px solid hsla(168,86%,68%,0.4); border-bottom-right-radius: 5px; border-top-left-radius: 5px">
+                     <div class="aa-product-catg-head-left">
+                        <form action="{% url 'product_list' page=1 %}" method="get" class="aa-sort-form">
+                           <label>Sort by
+                           </label>
+                           <select name="ordering" onchange="productSort();">
+                              {% if ordering == "title" %}
+                              <option value="timestamp">Newest First</option>
+                              <option value="title" selected="selected">Title</option>
+                              <option value="price">Price Low to High</option>
+                              <option value="-price">Price High to Low</option>
+                              {% elif ordering == "price" %}
+                              <option value="timestamp">Newest First</option>
+                              <option value="title">Title</option>
+                              <option value="price" selected="selected">Price Low to High</option>
+                              <option value="-price">Price High to Low</option>
+                               {% elif ordering == "-price" %}
+                               <option value="timestamp">Newest First</option>
+                              <option value="title">Title</option>
+                              <option value="price">Price Low to High</option>
+                              <option value="-price" selected="selected">Price High to Low</option>
+                               {% else %}
+                              <option value="timestamp" selected="selected">Newest First</option>
+                              <option value="title">Title</option>
+                              <option value="price">Price Low to High</option>
+                              <option value="-price">Price High to Low</option>
+                               {% endif %}
+                           </select>
+                            {% if filter %}
+                                <input type="hidden" name="filter" value="{{ filter }}">
+                            {% endif %}
+                           <button type="submit" id="sort-button" style="display: none"></button>
+                        </form>
+                     </div>
+                     <div class="aa-product-catg-head-right">
+                        <a id="grid-catg" href="#">
+                        <span class="fa fa-th">
+                        </span>
+                        </a>
+                        <a id="list-catg" href="#">
+                        <span class="fa fa-list">
+                        </span>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="aa-product-catg-body">
+                     <ul class="aa-product-catg">
+                        <!-- start single product item -->
+                        {% if object_list|length > 0 %}
+                        {% for product in object_list %}
+                        <li>
+                           <figure>
+                              <a class="aa-product-img" id="aa-product-img{{ product.id }}" href="{{ product.get_absolute_url }}">
+                              <img class=" img-rounded img-responsive img-thumbnail" src="{{ product.product_images.all.0.image.url }}" alt="{{ product.product_images.all.0.alt_text }}">
+                              </a>
+                              {% if product.stock == 0 %}
+                              <a class="aa-add-card-btn" href="#" data-toggle="modal" data-target="#notification-modal{{ product.id }}">
+                              <span class="fa fa-bell-o">
+                              </span>Notify Me
+                              </a>
+                              {% else %}
+                              <a class="aa-add-card-btn" id="add_to_cart{{ product.id }}" href="#" onclick="addtoCart(event,'{{ product.slug }}','{{ product.id }}')">
+                              <span class="fa fa-shopping-cart">
+                              </span><div class="add_to_cart">Add To Cart</div>
+                              </a>
+                              {% endif %}
+                              <figcaption>
+                                 <h4 class="aa-product-title">
+                                    <a href="{{ product.get_absolute_url }}">{{ product.title }}
+                                    </a>
+                                 </h4>
+                                 <span class="aa-product-price">{% if product.sale_price %}Rs{{ product.sale_price }}
+                                 </span>
+                                 <span class="aa-product-price">
+                                 <del>Rs{{ product.price }}
+                                 </del>{% else %}Rs{{ product.price }}{% endif %}
+                                 </span>
+                                 <p class="aa-product-descrip">{{ product.highlights }}
+                                 </p>
+                              </figcaption>
+                           </figure>
+                           <div class="aa-product-hvr-content">
+                              {% if user.is_authenticated %}
+                              <a href="#" data-toggle="tooltip" data-placement="top" id="add_to_wishlist{{ product.id }}" title="Add to Wishlist" onclick="addtoWishlist(event,'{{ product.slug }}','{{ product.id }}')">
+                              <span class="fa fa-heart-o">
+                              </span>
+                              </a>
+                              {% else %}
+                              <a href="#" data-toggle="modal" data-target="#login-modal" title="Add to Wishlist">
+                              <span class="fa fa-heart-o">
+                              </span>
+                              </a>
+                              {% endif %}
+                              <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal{{ product.id }}">
+                              <span class="fa fa-search">
+                              </span>
+                              </a>
+                           </div>
+                           <!-- product badge -->
+                           {% if product.sale_price %}
+                           <span class="aa-badge aa-sale" href="#">SALE!
+                           </span>
+                           {% elif product.stock == 0 %}
+                           <span class="aa-badge aa-sold-out" href="#">Sold Out!
+                           </span>
+                           {% elif product.exclusive %}
+                           <span class="aa-badge aa-hot" href="#">EXCLUSIVE!
+                           </span>
+                           {% endif %}
+                        </li>
+                        {% endfor %}
+                        {% else %}
+                        <h1>No Products Found.</h1>
+                        {% endif %}
+                     </ul>
+                     {% for product in object_list %}
+                     <!-- quick view modal -->                  
+                     <div class="modal fade quick-view-modal" id="quick-view-modal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-body">
+                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                 </button>
+                                 <div class="row">
+                                    <!-- Modal view slider -->
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <div class="aa-product-view-slider">
+                                          <div class="product-detail__gallery">
+                                             <div class="product-slider-wrapper">
+                                                <div class="product-slider">
+                                                   {% for img in product.product_images.all %}
+                                                   <div class="item">
+                                                      <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" data-highres="{{ img.image.url }}">
+                                                   </div>
+                                                   {% endfor %}
+                                                </div>
+                                                <div class="product-slider-thumb-row">
+                                                   <div class="product-slider-thumb">
+                                                      {% for img in product.product_images.all %}
+                                                      <div class="item">
+                                                         <img src="{{ img.image.url }}" alt="{{ img.alt_text }}">
+                                                      </div>
+                                                      {% endfor %}
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <!-- Modal view content -->
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <div class="aa-product-view-content">
+                                          <h4>{{ product.title }}
+                                          </h4>
+                                          <div class="aa-price-block">
+                                              {% if product.sale_price %}
+                                              <span class="aa-product-view-price">Rs {{ product.price }}</span>
+                                              <span class="aa-product-sale-price" style="font-size: 18px">Rs {{ product.sale_price }}</span>
+                                              {% else %}
+                                              <span class="aa-product-view-price">Rs {{ product.price }}</span>
+                                              {% endif %}
+
+                                             </span>
+                                             <p class="aa-product-avilability">Avilability: {% if product.stock > 0 %}
+                                                <span>In stock
+                                                </span>{% else %}
+                                                <span style="color: red">Out of Stock
+                                                </span>{% endif %}
+                                             </p>
+                                          </div>
+                                          <p>{{ product.highlights|linebreaks }}
+                                          </p>
+                                          <div class="aa-prod-view-bottom">
+                                             <a href="#" class="aa-add-to-cart-btn" id="add_to_cart_modal{{ product.id }}" onclick="addtoCart(event,'{{ product.slug }}','{{ product.id }}')">
+                                             <span class="fa fa-shopping-cart">
+                                             </span>Add To Cart
+                                             </a>
+                                             <a href="{{ product.get_absolute_url }}" class="aa-add-to-cart-btn">View Details
+                                             </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                     </div>
+                     {% endfor %}
+                     <!-- / quick view modal -->   
+                  </div>
+                  {% if is_paginated %}
+                  <div class="aa-product-catg-pagination">
+                     <nav>
+                        <ul class="pagination">
+                           {% if page_obj.has_previous %}
+                           <li>
+                              {% if filter %}
+                                <a href="{% url 'product_list' page=page_obj.previous_page_number %}?filter={{ filter }}" aria-label="Previous">
+                              {% else %}
+                                  <a href="{% url 'product_list' page=page_obj.previous_page_number %}" aria-label="Previous">
+                              {% endif %}
+                              <span aria-hidden="true">&laquo;
+                              </span>
+                              </a>
+                           </li>
+                           {% endif %}
+                           <li>
+                              <a href="">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                              </a> 
+                           </li>
+                           {% if page_obj.has_next %}
+                           <li>
+                              {% if filter %}
+                              <a href="{% url 'product_list' page=page_obj.next_page_number %}?filter={{ filter }}" aria-label="Next">
+                              {% else %}
+                              <a href="{% url 'product_list' page=page_obj.next_page_number %}" aria-label="Next">
+                              {% endif %}
+                              <span aria-hidden="true">&raquo;
+                              </span>
+                              </a>
+                           </li>
+                           {% endif %}
+                        </ul>
+                     </nav>
+                  </div>
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+   </section>
+   <!-- / product category -->
+   <!-- Notification Modal -->
+   {% for product in object_list %}
+   {% if product.stock == 0 %}
+    <div class="modal fade" id="notification-modal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>We will notify you as soon as it gets back in stock.</h4>
+          <form class="aa-login-form">
+            <label for="">Email address<span>*</span></label>
+            <input type="email" id="notification-email{{ product.id }}" placeholder="email" name="email" required/>
+            <label for="">Mobile<span>*</span></label>
+            <input type="number" id="notification-mobile{{ product.id }}" placeholder="Password" name="mobile"/>
+            <input type="hidden" name="id" value="{{ product.id }}"/>
+            <button class="aa-browse-btn" type="submit" onclick="notification_submit(event,'{{ product.id }}');" style="float: none">Submit</button>
+          </form>
+          <span id="notification-modal-message"></span>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div>
+    {% endif %}
+    {% endfor %}
+   {% include 'footer.html' %}
+   {% include 'footer_script.html' %}
+   <script>
+    function addtoCart(e,product_slug, id){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        var add_to_cart = "#add_to_cart" + id;
+        var add_to_cart_modal = "#add_to_cart_modal" + id;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_cart' slug="default" %}".replace('default', product_slug),
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'qty' : 1
+            },
+            success: function(data){
+               $('#ajax_loading_animation').hide();
+                console.log(data);
+                $(add_to_cart).html("<span class='fa fa-check'></span>Added to Cart");
+                $(add_to_cart_modal).html("<span class='fa fa-check'></span>Added to Cart");
+                if(data.success){
+                    $('#message_div').removeClass("alert-error");
+                    $('#message_div').addClass("alert-success");
+                }else{
+                    $('#message_div').removeClass("alert-success");
+                    $('#message_div').addClass("alert-error");
+                }
+                $('#message_div').show();
+                $('#message').text(data.message);
+                UpdateCartItemCount();
+            },
+            error: function(response,error){
+               $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    function addtoWishlist(e,product_slug, id){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        var add_to_wishlist = "#add_to_wishlist" + id;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_to_wishlist' slug="default" %}".replace('default', product_slug),
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data){
+                $('#ajax_loading_animation').hide();
+                console.log(data);
+                $(add_to_wishlist).html("<span class='fa fa-heart'></span>");
+                $(add_to_wishlist).tooltip('hide');
+                $(add_to_wishlist).attr('data-original-title', 'Added to Wishlist');
+                $(add_to_wishlist).tooltip('show');
+                $('#message_div').show();
+                $('#message').text(data.success);
+            },
+            error: function(response,error){
+                $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+    function productSort() {
+        $('#sort-button').click();
+    }
+    function notification_submit(e,id){
+        e.preventDefault();
+        $('#ajax_loading_animation').show();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'stock_notification' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'id':id,
+                'email':$('#notification-email' + id).val(),
+                'mobile':$('#notification-mobile' + id).val()
+            },
+            success: function(data){
+                $('#ajax_loading_animation').hide();
+                console.log(data);
+                if(data.success){
+                    $('#notification-modal-message').addClass("success");
+                    $('#notification-modal-message').removeClass("error");
+                    $('#notification-modal-message').text(data.message)
+                }else{
+                    $('#notification-modal-message').addClass("error");
+                    $('#notification-modal-message').removeClass("success");
+                    $('#notification-modal-message').text(data.message)
+                }
+            },
+            error: function(response,error){
+                $('#ajax_loading_animation').hide();
+                alert('error')
+                console.log(response),
+                console.log(error)
+            }
+        })
+    }
+</script>
+<script defer>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47070425-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+{% endblock %}

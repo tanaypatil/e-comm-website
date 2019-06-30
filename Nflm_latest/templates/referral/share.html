@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NFLM | Product Referral</title>
+
+    {% include 'head_css.html' %}
+
+{% endblock %}
+
+{% block content %}
+    {% include 'header.html' %}
+
+    <div class="container">
+        <div class="row">
+            {% include 'myaccount_sidebar.html' %}
+            <div class="col-md-9">
+                <div class="account-container">
+                    <h1>{{ referral_coupon.coupon }}</h1>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post" action="{% url 'referral_share' %}">{% csrf_token %}
+                               <div class="form-group multiple-form-group" data-max=20>
+                                   <div class="form-group input-group">
+                                       <span class="input-group-btn">
+                                           <input type="text" class="form-control" name="name" autocomplete="off" id="name" placeholder="Name">
+                                           <input type="email" class="form-control" name="email" autocomplete="off" id="email" placeholder="E-mail">
+                                           <input type="tel" class="form-control" name="number" autocomplete="off" id="" placeholder="Mobile number">
+                                           <button type="button" class="btn btn-default btn-add">+</button>
+                                       </span>
+                                   </div>
+                                </div>
+                                <button type="submit" class="aa-browse-btn">Send</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+    {% include 'footer_script.html' %}
+    <script src="{% static 'js/referral.js' %}"></script>
+{% endblock %}
